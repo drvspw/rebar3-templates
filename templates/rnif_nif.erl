@@ -1,4 +1,4 @@
--module({{name}}).
+-module({{name}}_nif).
 
 %% API Exports
 -export([

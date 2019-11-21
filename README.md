@@ -8,7 +8,7 @@
 ```
 $ rebar3 new
 ...
-rif (custom): Rust NIF's using rustler in rs_src
+rnif (custom): Rust NIF's using rustler in rs_src
 ...
 ```
 
@@ -21,30 +21,30 @@ rif (custom): Rust NIF's using rustler in rs_src
 2. Create NIF from template
 ```
 $ cd <lib name>
-$ rebar3 new rif <name>
+$ rebar3 new rnif <name>
 ```
 
 This creates the following files in the current directory:
 
 ```
 ├── rebar.config
-├── rs_src
+├── rustler
 │   ├── Cargo.toml
 │   ├── Makefile
 │   └── src
 │       └── <name>.rs
 └── src
-    ├── <name>.erl	
+    ├── <name>_nif.erl
 ```
 
 3. Add the following hooks to `rebar.config`
 ```erlang
 {pre_hooks,
-  [{"(linux|darwin|solaris)", compile, "make -C rs_src"},
-   {"(freebsd)", compile, "gmake -C rs_src"}]}.
+  [{"(linux|darwin|solaris)", compile, "make -C rustler"},
+   {"(freebsd)", compile, "gmake -C rustler"}]}.
 {post_hooks,
-  [{"(linux|darwin|solaris)", clean, "make -C rs_src clean"},
-   {"(freebsd)", clean, "gmake -C rs_src clean"}]}.
+  [{"(linux|darwin|solaris)", clean, "make -C rustler clean"},
+   {"(freebsd)", clean, "gmake -C rustler clean"}]}.
 ```
 
 4. Complile and Test
@@ -56,9 +56,7 @@ $ rebar3 shell
 Erlang/OTP 20 [erts-9.3] [source] [64-bit] [smp:2:2] [ds:2:2:10] [async-threads:1] [hipe] [kernel-poll:false]
 
 Eshell V9.3  (abort with ^G)
-1> <name>:add(10, 11).
+1> <name>_nif:add(10, 11).
 {ok,21}
-2> 
+2>
 ```
-
-
