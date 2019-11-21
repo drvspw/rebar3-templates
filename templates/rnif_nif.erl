@@ -18,18 +18,12 @@
 %%
 %% @end
 -spec add(A, B) -> {ok, Sum}
-        when
-        A :: integer(),
-        B :: integer(),
-        Sum :: integer().
+                     when
+    A :: integer(),
+    B :: integer(),
+    Sum :: integer().
 add(A,B) ->
-        add_nif(A,B).
-
-%%====================================================================
-%% NIFS
-%%====================================================================
-add_nif(_,_) ->
-    not_loaded(?LINE).
+  not_loaded(?LINE).
 
 %%====================================================================
 %%%% Internal functions
@@ -51,4 +45,4 @@ lib_file(PrivDir, LibName) ->
   filename:join(PrivDir, LibName).
 
 not_loaded(Line) ->
-            exit({not_loaded, [{module, ?MODULE}, {line, Line}]}).
+  exit({not_loaded, [{module, ?MODULE}, {line, Line}]}).
