@@ -1,0 +1,29 @@
+RustlerPreHooks = [{"(linux|darwin|solaris)", compile, "make -C rustler"},
+                   {"(freebsd)", compile, "gmake -C rustler"}].
+
+RustlerPostHooks = [{"(linux|darwin|solaris)", clean, "make -C rustler clean"},
+                    {"(freebsd)", clean, "gmake -C rustler clean"}].
+
+AddRustlerHooks = fun(Config, HookType, Hooks) ->
+                      case proplists:get_value(HookType, Config) of
+                        undefined ->
+                          [{HookType, Hooks}|Config];
+                        _ ->
+                          io:format("WARNING: Add ~p to ~p to compile rust nif's~n", [Hooks, HookType]),
+                          Config
+                      end
+                  end.
+
+AddRustlerPreHooks = fun(Config) ->
+                         AddRustlerHooks(Config, pre_hooks, RustlerPreHooks)
+                     end.
+
+AddRustlerPostHooks = fun(Config) ->
+                         AddRustlerHooks(Config, post_hooks, RustlerPostHooks)
+                     end.
+
+
+CurrentConfig = CONFIG.
+ConfigWithRustlerPreHooks = AddRustlerPreHooks(CurrentConfig).
+ConfigWithRustlerPostHooks = AddRustlerPostHooks(ConfigWithRustlerPreHooks).
+ConfigWithRustlerPostHooks.

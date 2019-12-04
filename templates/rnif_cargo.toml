@@ -5,7 +5,7 @@ authors = []
 
 [lib]
 name = "{{name}}"
-path = "src/{{name}}.rs"
+path = "src/lib.rs"
 crate-type = ["cdylib"]
 
 [dependencies]

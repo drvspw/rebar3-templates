@@ -28,16 +28,18 @@ This creates the following files in the current directory:
 
 ```
 ├── rebar.config
+├── rebar.config.script
 ├── rustler
 │   ├── Cargo.toml
 │   ├── Makefile
 │   └── src
+│       └── <lib>.rs
 │       └── <name>.rs
 └── src
     ├── <name>_nif.erl
 ```
 
-3. Add the following hooks to `rebar.config`
+3. `rebar.config.script` file dynamically adds `pre_hooks` and `post_hooks` to build rust code as part of `rebar3` build process. If you are adding rust nif's to an existing project that already has a `rebar.config.script` file, then this template would not create `rebar.config.script` file. You have to add following hooks to `rebar.config`
 ```erlang
 {pre_hooks,
   [{"(linux|darwin|solaris)", compile, "make -C rustler"},
