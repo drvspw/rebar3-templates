@@ -46,3 +46,17 @@ lib_file(PrivDir, LibName) ->
 
 not_loaded(Line) ->
   exit({not_loaded, [{module, ?MODULE}, {line, Line}]}).
+
+%%=========================================================================
+%% Unit Test Suite
+%%=========================================================================
+-ifdef(TEST).
+
+-include_lib("eunit/include/eunit.hrl").
+
+suite_test_() ->
+  [
+    ?_assert(false)
+  ].
+
+-endif.
