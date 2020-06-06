@@ -10,3 +10,4 @@ crate-type = ["cdylib"]
 
 [dependencies]
 rustler = "0.21.0"
+#lazy_static = "1.4.0"

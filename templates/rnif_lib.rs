@@ -1,4 +1,5 @@
 #[macro_use] extern crate rustler;
+//#[macro_use] extern crate lazy_static;
 
 use rustler::{Env, Term};
 
