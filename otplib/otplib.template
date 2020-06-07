@@ -10,8 +10,6 @@
 
 %% elvis
 {file, "otplib_elvis.config", "{{name}}/elvis.config"}.
-{file, "otplib_elvis", "{{name}}/elvis"}.
-{chmod, "{{name}}/elvis", 8#755}.
 
 %% ebump
 {file, "otplib_ebump_config", "{{name}}/ebump.config"}.
@@ -42,6 +40,6 @@
 {template, "otplib_readme", "{{name}}/README.md"}.
 
 {dir, ".github/workflows"}.
-{template, "otplib_ci_makefile", "{{name}}/.circleci/Makefile"}.
-{template, "otplib_ci_dockerfile", "{{name}}/.github/Dockerfile"}.
+{template, "otplib_ci_makefile", "{{name}}/.github/workflows/Makefile"}.
+{template, "otplib_ci_dockerfile", "{{name}}/.github/workflows/Dockerfile"}.
 {template, "otplib_gh_workflow.yml", "{{name}}/.github/workflows/main.yml"}.

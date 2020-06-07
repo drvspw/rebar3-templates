@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: docker://drvspw/@@name@@-build # erlang:22.2.3
+      image: docker://@@gh_owner@@/@@name@@-build # erlang:22.2.3
 
     steps:
     - uses: actions/checkout@v1
@@ -44,7 +44,7 @@ jobs:
         go get -u github.com/tcnksm/ghr
         VERSION=$(./ebump current)
         REPO=@@name@@
-        OWNER=drvspw
+        OWNER=@@gh_owner@@
         $HOME/go/bin/ghr \
             -t ${GITHUB_TOKEN} \
             -u ${OWNER} \

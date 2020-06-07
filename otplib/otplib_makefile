@@ -1,15 +1,12 @@
 BASEDIR = $(shell pwd)
 APPNAME = $(shell basename $(BASEDIR))
 REBAR = rebar3
-ELVIS = $(BASEDIR)/elvis
 
-LINTERS = elvis xref eunit
+LINTERS = lint xref eunit
 
 REGRESSION_TEST_DIR := test/
 REGRESSION_TEST_FILES := $(shell find $(REGRESSION_TEST_DIR) -name '*_SUITE.erl' -exec basename '{}' \;)
 REGRESSION_TEST_SUITES := $(shell echo $(REGRESSION_TEST_FILES) | sed -e 's/.erl//g' | sed -e 's/ /,/g')
-
-.PHONY: elvis
 
 compile:
 	$(REBAR) compile
@@ -23,8 +20,8 @@ xref:
 dialyzer:
 	$(REBAR) dialyzer
 
-elvis:
-	$(ELVIS) rock -c elvis.config
+lint:
+	$(REBAR) lint
 
 test: $(LINTERS)
 	$(REBAR) ct -v \
@@ -35,9 +32,6 @@ test: $(LINTERS)
 
 console: test
 	$(REBAR) shell
-
-todo:
-	$(REBAR) todo
 
 clean:
 	$(REBAR) clean

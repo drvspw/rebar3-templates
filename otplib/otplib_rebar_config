@@ -13,10 +13,9 @@
 
 {edoc_opts, [{dir, "docs"}, {preprocess, true}]}.
 
-{project_plugins, [{rebar3_lint, "0.1.9"}]}.
+{project_plugins, [{rebar3_lint, "0.1.11"}]}.
 
 {plugins, [
-    { todo, ".*", {git, "https://github.com/drvspw/rebar3-todo-plugin.git", {branch, "master"}}}
 ]}.
 
 {provider_hooks, [
