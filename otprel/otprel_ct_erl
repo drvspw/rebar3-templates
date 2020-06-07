@@ -1,4 +1,4 @@
--module({{app}}_ct).
+-module({{name}}_ct).
 
 %%=====================================================
 %% test util functions

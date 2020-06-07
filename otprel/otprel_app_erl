@@ -1,5 +1,5 @@
 {{=@@ @@=}}
--module(@@app@@).
+-module(@@name@@).
 
 %% api
 -export([get_application/0,
@@ -41,7 +41,7 @@
 -define(SERVER, ?MODULE).
 
 %%%-------------------------------------------------------------------
-%% @doc @@app@@ public API
+%% @doc @@name@@ public API
 %% @end
 %%%-------------------------------------------------------------------
 get_application() ->
@@ -69,12 +69,12 @@ current_time_ms() ->
     (Mega*1000000 + Sec)*1000 + round(Micro/1000).
 
 current_time_to_datetime() ->
-    TimeStamp = @@app@@:current_time_ms(),
-    @@app@@:timestamp_to_datetime(TimeStamp).
+    TimeStamp = @@name@@:current_time_ms(),
+    @@name@@:timestamp_to_datetime(TimeStamp).
 
 current_time_to_iso8601() ->
-    TimeStamp = @@app@@:current_time_ms(),
-    @@app@@:timestamp_to_iso8601(TimeStamp).
+    TimeStamp = @@name@@:current_time_ms(),
+    @@name@@:timestamp_to_iso8601(TimeStamp).
 
 timestamp_to_datetime(TimeStamp) ->
     UnixEpochGS = calendar:datetime_to_gregorian_seconds({{1970, 1, 1}, {0, 0, 0}}),
@@ -82,7 +82,7 @@ timestamp_to_datetime(TimeStamp) ->
     calendar:universal_time_to_local_time(calendar:gregorian_seconds_to_datetime(GregorianSeconds)).
 
 timestamp_to_iso8601(TimeStamp) ->
-    Now = @@app@@:timestamp_to_datetime(TimeStamp),
+    Now = @@name@@:timestamp_to_datetime(TimeStamp),
     ec_date:format_iso8601(Now).
 
 is_pid_alive(Pid) when node(Pid) =:= node() ->
@@ -130,7 +130,7 @@ get_host_fqdn() ->
 %%--------------------------------------------------------------------
 
 %%%-------------------------------------------------------------------
-%% @doc @@app@@ application callbacks
+%% @doc @@name@@ application callbacks
 %% @end
 %%%-------------------------------------------------------------------
 start(_StartType, _StartArgs) ->
@@ -143,7 +143,7 @@ stop(_State) ->
 %%--------------------------------------------------------------------
 
 %%%-------------------------------------------------------------------
-%% @doc @@app@@ top level supervisor.
+%% @doc @@name@@ top level supervisor.
 %% @end
 %%%-------------------------------------------------------------------
 start_link() ->
@@ -171,8 +171,8 @@ init([]) ->
 %% Private functions
 %%====================================
 set_loglevel(Level) ->
-    {ok, App} = @@app@@:get_application(),
-    {ok, LogFile} = @@app@@:get_env(App, log_file),
+    {ok, App} = @@name@@:get_application(),
+    {ok, LogFile} = @@name@@:get_env(App, log_file),
     lager:set_loglevel(lager_file_backend, LogFile, Level).
 
 %%=========================================================================

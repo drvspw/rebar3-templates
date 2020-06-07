@@ -1,15 +1,15 @@
-Package: {{app}}
+Package: {{name}}
 Version: 2.12.0-01
-Depends: 
+Depends:
 Architecture: amd64
-Maintainer: Xaptum, Inc <social@xaptum.com>
-Provides: {{app}}
+Maintainer: {{copyright_owner}}
+Provides: {{name}}
 Section: server
 Priority: optional
 Multi-Arch: foreign
-Homepage: https://www.xaptum.com
+Homepage: https://github.com/{{gh_owner}}/{{name}}
 XBS-Comment: This package in built from a branch
-Description: A debian package for a Xaptum service
+Description: A debian package for {{name}} service
  .
  Usage of this product is subject to licensing limitations, please
  read the license document before using this product.

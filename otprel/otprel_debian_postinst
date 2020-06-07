@@ -1,14 +1,14 @@
 #!/bin/sh -e
 
 
-XPKG={{app}}
+XPKG={{name}}
 
-XHOME=/var/lib/xaptum
-XLIB=/var/lib/xaptum
-XLOG=/var/log/xaptum
-XTMP=/var/tmp/xaptum
+XHOME=/var/lib/${XPKG}
+XLOG=/var/log/${XPKG}
+XTMP=/var/tmp/${XPKG}
+XDATA=/var/data/${XPKG}
 
-XINST=/opt/xaptum/${XPKG}
+XINST=/opt/${XPKG}
 XBIN=${XINST}/bin
 XCNF=${XINST}/conf
 
@@ -16,32 +16,32 @@ PKG_VERSION=__PKG_VERSION__
 
 NOLOGIN=/usr/sbin/nologin
 
-echo "Adding the xaptum system user and group."
-adduser --system --group --home $XHOME --shell $NOLOGIN xaptum
+echo "Adding the {{name}} system user and group."
+adduser --system --group --home $XHOME --shell $NOLOGIN {{name}}
 
-echo "Moving home directory to /var/lib/xaptum"
-usermod -m -d $XHOME xaptum
+echo "Moving home directory to ${XHOME}"
+usermod -m -d $XHOME {{name}}
 
 echo "Changing shell to nologin"
-usermod -s $NOLOGIN xaptum
+usermod -s $NOLOGIN {{name}}
 
 
-echo "Creating xaptum /var directories."
-mkdir -p ${XLIB}/${XPKG}
-mkdir -p ${XLOG}/${XPKG}
-mkdir -p ${XTMP}/${XPKG}
+echo "Creating {{name}} /var directories."
+mkdir -p ${XDATA}
+mkdir -p ${XLOG}
+mkdir -p ${XTMP}
 
-echo "Setting ownership of xaptum directories."
-chown -R xaptum:xaptum ${XINST}
-chown -R xaptum:xaptum ${XLOG}
-chown -R xaptum:xaptum ${XLIB}
-chown -R xaptum:xaptum ${XTMP}
+echo "Setting ownership of {{name}} directories."
+chown -R {{name}}:{{name}} ${XINST}
+chown -R {{name}}:{{name}} ${XLOG}
+chown -R {{name}}:{{name}} ${XLIB}
+chown -R {{name}}:{{name}} ${XTMP}
 
 # Enable services
 if [ X != "X$(pidof systemd)" ]; then
-  echo "Enabling {{app}} service to start on boot"
+  echo "Enabling {{name}} service to start on boot"
   systemctl daemon-reload
-  systemctl enable {{app}}.service
+  systemctl enable {{name}}.service
 else
   echo "systemd not available. start services manually"
 fi

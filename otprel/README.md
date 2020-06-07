@@ -2,25 +2,21 @@
 
 ### Installation
 1. Clone this repository
-2. Copy all the files in `otp-rel` directory to `~/.config/rebar3/templates/`
+2. Copy all the files in `otprel` directory to `~/.config/rebar3/templates/`
 3. Check if the templates are available
 ```
 $ rebar3 new
 ...
-otp-rel (custom): Complete OTP Release application structure
+otprel (custom): Complete OTP Release application structure
 ...
 ```
 
 ### Usage
-- Create a new project directory `<appname>`
-- Create project structure
 ```
-$ cd <appname>
-$ rebar3 new otp-rel <appname>
+$ rebar3 new otprel <appname>
 ```
 
-This creates the following files in the current directory
-
+This creates a new directory `<appname>` with the following directory structure
 ```
 .
 ├── config
@@ -38,7 +34,6 @@ This creates the following files in the current directory
 │   │   └── prerm
 │   └── service
 │       └── <appname>.service
-├── elvis
 ├── elvis.config
 ├── include
 ├── LICENSE

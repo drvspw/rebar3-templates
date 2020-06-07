@@ -21,7 +21,7 @@ function sedeasy {
 }
 
 env_error() {
-    echo "${{app}}_ENV is not set. Allowed values are dev|prod"
+    echo "${{name}}_ENV is not set. Allowed values are dev|prod"
     exit -1
 }
 
@@ -73,7 +73,7 @@ version() {
 }
 
 deploy_url() {
-    local ENV=${{{app}}_ENV}
+    local ENV=${{{name}}_ENV}
     local DIST=''
 
     case "X$ENV" in
@@ -142,14 +142,14 @@ debian() {
     sedeasy "XBS-Comment:.*" "Comment: This package is built from ${BRANCH} branch" ${DEB_DIR}/${PKG}/DEBIAN/control
     sedeasy "__PKG_VERSION__" "${PKG_VERSION}" ${DEB_DIR}/${PKG}/DEBIAN/postinst
 
-    # Copy {{app}}.service file
+    # Copy {{name}}.service file
     mkdir -p ${DEB_DIR}/${PKG}/usr/lib/systemd/system
     cp ./debian/service/*.service ${DEB_DIR}/${PKG}/usr/lib/systemd/system/
 
     # Create project directory
     mkdir -p ${DEB_DIR}/${PKG}/opt/xaptum/${PROJECT}
 
-    # Unpack {{app}} erlang release
+    # Unpack {{name}} erlang release
     tar -zxvf ${DEB_DIR}/../${PROJECT}.tar.gz -C ${DEB_DIR}/${PKG}/opt/xaptum
 
     # Build debian package

@@ -1,15 +1,15 @@
 [Unit]
-Description={{app}} Service
+Description={{name}} Service
 After=network.target
 
 [Service]
 Type=oneshot
 RemainAfterExit=yes
-ExecStart=/opt/xaptum/{{app}}/bin/{{app}} start
-ExecReload=/opt/xaptum/{{app}}/bin/{{app}} restart
-ExecStop=/opt/xaptum/{{app}}/bin/{{app}} stop
-User=xaptum
-WorkingDirectory=/opt/xaptum/{{app}}/bin
+ExecStart=/opt/{{name}}/bin/{{name}} start
+ExecReload=/opt/{{name}}/bin/{{name}} restart
+ExecStop=/opt/{{name}}/bin/{{name}} stop
+User={{name}}
+WorkingDirectory=/opt/{{name}}/bin
 LimitNOFILE=1000000
 
 [Install]

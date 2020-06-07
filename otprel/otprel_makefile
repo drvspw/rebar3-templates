@@ -1,11 +1,9 @@
 BASEDIR = $(shell pwd)
 REBAR = rebar3
-ELVIS = $(BASEDIR)/elvis
-
 
 APPNAME = $(shell basename $(BASEDIR))
-ifneq ($(APPNAME), {{app}})
-  APPNAME = {{app}}
+ifneq ($(APPNAME), {{name}})
+  APPNAME = {{name}}
 endif
 
 RELPATH = _build/default/rel/$(APPNAME)
@@ -17,7 +15,7 @@ SHELL = /bin/bash
 APPVSN = $(shell ./.package.sh version)
 
 # dialyzer
-LINTERS = elvis xref eunit
+LINTERS = lint xref eunit
 
 REGRESSION_TEST_DIR := test/regression
 REGRESSION_TEST_FILES := $(shell find $(REGRESSION_TEST_DIR) -name '*_SUITE.erl' -exec basename '{}' \;)
@@ -28,11 +26,11 @@ export CT_RELPATH = $(BASEDIR)/_build/dev1/rel/$(APPNAME)
 
 .DEFAULT_GOAL := help
 
-ifndef {{app}}_ENV
-export {{app}}_ENV = local
+ifndef {{name}}_ENV
+export {{name}}_ENV = local
 endif
 
-.PHONY: elvis debian deploy tag help
+.PHONY: lint debian deploy tag help
 
 compile: ## compile
 	$(REBAR) compile
@@ -46,8 +44,8 @@ xref: ## xref
 dialyzer: ## dialyzer
 	$(REBAR) dialyzer
 
-elvis: ## elvis
-	$(ELVIS) rock -c elvis.config
+lint: ## lint
+	$(REBAR) lint
 
 release: $(LINTERS) ## release
 	$(REBAR) release
@@ -59,8 +57,8 @@ console: release ## console
 	cd $(RELPATH) && sudo ./bin/$(APPNAME) console
 
 regression-test: test-release ## ct test
-	sudo mkdir -p /var/lib/xaptum/$(APPNAME) && \
-	sudo $(REBAR) ct -v --sname {{app}}-$(test)@localhost \
+	sudo mkdir -p /var/lib/$(APPNAME) && \
+	sudo $(REBAR) ct -v --sname {{name}}-test@localhost \
 	--dir test/regression \
 	--suite=$(REGRESSION_TEST_SUITES) \
 	--include $(BASEDIR)/include \

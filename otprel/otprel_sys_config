@@ -75,7 +75,7 @@
    {dir, "{{lib_dir}}/{{app_name}}/{{node_name}}-mnesia"}
 ]},
 
-{@@app@@, [
+{@@name@@, [
            {log_file, "{{node_name}}.log"}
           ]}
 

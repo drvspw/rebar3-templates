@@ -2,8 +2,8 @@
 
 # Enable services
 if [ X != "X$(pidof systemd)" ]; then
-  echo "Disable {{app}} service"
-  systemctl disable {{app}}.service
+  echo "Disable {{name}} service"
+  systemctl disable {{name}}.service
   systemctl daemon-reload
 else
   echo "systemd not available. start services manually"

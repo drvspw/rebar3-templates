@@ -1,9 +1,6 @@
-{{app}}
-=====
-
+### {{name}}
 {{desc}}
 
-Build
------
+### Usage
 
-    $ rebar3 compile
+### Contributing

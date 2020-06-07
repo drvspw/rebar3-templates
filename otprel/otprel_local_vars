@@ -1,16 +1,16 @@
-{node_name, "{{app}}"}.
+{node_name, "{{name}}"}.
 
-{app_name, "{{app}}"}.
+{app_name, "{{name}}"}.
 
-{log_dir, "/var/log/xaptum"}.
+{log_dir, "/var/log/{{name}}"}.
 
-{install_dir, "/opt/xaptum"}.
+{install_dir, "/opt/{{name}}"}.
 
-{tmp_dir, "/var/tmp/xaptum"}.
+{tmp_dir, "/var/tmp/{{name}}"}.
 
-{lib_dir, "/var/lib/xaptum"}.
+{lib_dir, "/var/lib/{{name}}"}.
 
-{erlang_cookie, "{{app}}cookie"}.
+{erlang_cookie, "{{name}}cookie"}.
 
 {erlang_max_ports, 4096}.
 

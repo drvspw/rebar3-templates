@@ -1,9 +1,9 @@
 {{=@@ @@=}}
-{application, @@app@@,
+{application, @@name@@,
  [{description, "@@desc@@"},
   {vsn, {cmd, "./.package.sh version"}},
   {registered, []},
-  {mod, {'@@app@@', []}},
+  {mod, {'@@name@@', []}},
 
   {applications,
    [kernel,
@@ -13,7 +13,7 @@
 %%    uuid,
 
     qdate,
-    xepmd,
+    erldist,
     lager,
     xrecon
    ]},

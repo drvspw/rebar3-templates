@@ -1,75 +1,71 @@
-{description, "Helper files for Xaptum OTP application"}.
+{description, "Complete OTP Release application structure"}.
 
 {variables, [
-    {app, "", "Application name"},
-    {desc, "An OTP application", "Short description of the release's main app's purpose"}
+    {name, "", "Application name"},
+    {desc, "An OTP release application", "Short description of the release's main app's purpose"}
 ]}.
 
 %% create app directory
-{dir, "{{app}}"}.
+{dir, "{{name}}"}.
 
 %% elvis
-{file, "xnode_elvis.config", "{{app}}/elvis.config"}.
-{file, "xnode_elvis", "{{app}}/elvis"}.
-{chmod, "{{app}}/elvis", 8#755}.
+{file, "otprel_elvis.config", "{{name}}/elvis.config"}.
+
+%% ebump
+{file, "otprel_ebump_config", "{{name}}/ebump.config"}.
+{file, "otprel_ebump", "{{name}}/ebump"}.
+{chmod, "{{name}}/ebump", 8#755}.
 
 %% makefile
-{template, "xnode_makefile", "{{app}}/Makefile"}.
+{template, "otprel_makefile", "{{name}}/Makefile"}.
 
 %% .package.sh
-{template, "xnode_package.sh", "{{app}}/.package.sh"}.
-{chmod, "{{app}}/.package.sh", 8#755}.
+{template, "otprel_package.sh", "{{name}}/.package.sh"}.
+{chmod, "{{name}}/.package.sh", 8#755}.
 
 %% rebar.config
-{template, "xnode_rebar_config", "{{app}}/rebar.config"}.
-
-
-
+{template, "otprel_rebar_config", "{{name}}/rebar.config"}.
 
 %% overlay vars
-{dir, "{{app}}/config"}.
-{template, "xnode_local_vars", "{{app}}/config/local.vars"}.
-{template, "xnode_dev_vars", "{{app}}/config/dev.vars"}.
-{template, "xnode_prod_vars", "{{app}}/config/prod.vars"}.
-{template, "xnode_test_vars", "{{app}}/config/test.vars"}.
+{dir, "{{name}}/config"}.
+{template, "otprel_local_vars", "{{name}}/config/local.vars"}.
+{template, "otprel_prod_vars", "{{name}}/config/prod.vars"}.
+{template, "otprel_test_vars", "{{name}}/config/test.vars"}.
 
 %% vm.args
-{file, "xnode_vm_args", "{{app}}/config/vm.args"}.
-{template, "xnode_sys_config", "{{app}}/config/sys.config"}.
-{file, "xnode_dist_conf", "{{app}}/config/dist.conf"}.
+{file, "otprel_vm_args", "{{name}}/config/vm.args"}.
+{template, "otprel_sys_config", "{{name}}/config/sys.config"}.
+{file, "otprel_dist_conf", "{{name}}/config/dist.conf"}.
 
 %% debain control files
-{dir, "{{app}}/debian/control"}.
-{template, "xnode_debian_control",  "{{app}}/debian/control/control"}.
-{template, "xnode_debian_postinst",  "{{app}}/debian/control/postinst"}.
-{chmod, "{{app}}/debian/control/postinst", 8#755}.
-{template, "xnode_debian_prerm",  "{{app}}/debian/control/prerm"}.
-{chmod, "{{app}}/debian/control/prerm", 8#755}.
+{dir, "{{name}}/debian/control"}.
+{template, "otprel_debian_control",  "{{name}}/debian/control/control"}.
+{template, "otprel_debian_postinst",  "{{name}}/debian/control/postinst"}.
+{chmod, "{{name}}/debian/control/postinst", 8#755}.
+{template, "otprel_debian_prerm",  "{{name}}/debian/control/prerm"}.
+{chmod, "{{name}}/debian/control/prerm", 8#755}.
 
 %% service files for application
-{dir, "{{app}}/debian/service"}.
-{template, "xnode_app_service", "{{app}}/debian/service/{{app}}.service"}.
+{dir, "{{name}}/debian/service"}.
+{template, "otprel_app_service", "{{name}}/debian/service/{{name}}.service"}.
 
 %% ct test directory
-{dir, "{{app}}/test/regression"}.
-{dir, "{{app}}/test/stubs"}.
-{template, "xnode_test_suite_erl", "{{app}}/test/regression/{{app}}_test_SUITE.erl"}.
-{template, "xnode_ct_erl", "{{app}}/test/regression/{{app}}_ct.erl"}.
+{dir, "{{name}}/test/regression"}.
+{dir, "{{name}}/test/stubs"}.
+{template, "otprel_test_suite_erl", "{{name}}/test/regression/{{name}}_test_SUITE.erl"}.
+{template, "otprel_ct_erl", "{{name}}/test/stubs/{{name}}_ct.erl"}.
 
 %% OTP app
-{dir, "{{app}}/src"}.
-{dir, "{{app}}/priv"}.
-{dir, "{{app}}/include"}.
-{template, "xnode_app_src", "{{app}}/src/{{app}}.app.src"}.
-{template, "xnode_app_erl", "{{app}}/src/{{app}}.erl"}.
-{template, "xnode_gitignore", "{{app}}/.gitignore"}.
-{template, "xnode_license", "{{app}}/LICENSE"}.
-{template, "xnode_readme", "{{app}}/README.md"}.
+{dir, "{{name}}/src"}.
+{dir, "{{name}}/priv"}.
+{dir, "{{name}}/include"}.
+{template, "otprel_app_src", "{{name}}/src/{{name}}.app.src"}.
+{template, "otprel_app_erl", "{{name}}/src/{{name}}.erl"}.
+{template, "otprel_gitignore", "{{name}}/.gitignore"}.
+{template, "otprel_license", "{{name}}/LICENSE"}.
+{template, "otprel_readme", "{{name}}/README.md"}.
 
-{dir, "{{app}}/.circleci"}.
-{template, "xnode_ci_dockerfile", "{{app}}/.circleci/Dockerfile"}.
-{template, "xnode_ci_config_yml", "{{app}}/.circleci/config.yml"}.
-{template, "xnode_notify_slack.sh", "{{app}}/.circleci/notify-slack.sh"}.
-{chmod, "{{app}}/.circleci/notify-slack.sh", 8#755}.
-{template, "xnode_setup_aws_credentials.sh", "{{app}}/.circleci/setup-aws-credentials.sh"}.
-{chmod, "{{app}}/.circleci/setup-aws-credentials.sh", 8#755}.
+{dir, ".github/workflows"}.
+{template, "otplib_ci_makefile", "{{name}}/.github/workflows/Makefile"}.
+{template, "otplib_ci_dockerfile", "{{name}}/.github/workflows/Dockerfile"}.
+{template, "otplib_gh_workflow.yml", "{{name}}/.github/workflows/main.yml"}.
