@@ -1,0 +1,75 @@
+{description, "Helper files for Xaptum OTP application"}.
+
+{variables, [
+    {app, "", "Application name"},
+    {desc, "An OTP application", "Short description of the release's main app's purpose"}
+]}.
+
+%% create app directory
+{dir, "{{app}}"}.
+
+%% elvis
+{file, "xnode_elvis.config", "{{app}}/elvis.config"}.
+{file, "xnode_elvis", "{{app}}/elvis"}.
+{chmod, "{{app}}/elvis", 8#755}.
+
+%% makefile
+{template, "xnode_makefile", "{{app}}/Makefile"}.
+
+%% .package.sh
+{template, "xnode_package.sh", "{{app}}/.package.sh"}.
+{chmod, "{{app}}/.package.sh", 8#755}.
+
+%% rebar.config
+{template, "xnode_rebar_config", "{{app}}/rebar.config"}.
+
+
+
+
+%% overlay vars
+{dir, "{{app}}/config"}.
+{template, "xnode_local_vars", "{{app}}/config/local.vars"}.
+{template, "xnode_dev_vars", "{{app}}/config/dev.vars"}.
+{template, "xnode_prod_vars", "{{app}}/config/prod.vars"}.
+{template, "xnode_test_vars", "{{app}}/config/test.vars"}.
+
+%% vm.args
+{file, "xnode_vm_args", "{{app}}/config/vm.args"}.
+{template, "xnode_sys_config", "{{app}}/config/sys.config"}.
+{file, "xnode_dist_conf", "{{app}}/config/dist.conf"}.
+
+%% debain control files
+{dir, "{{app}}/debian/control"}.
+{template, "xnode_debian_control",  "{{app}}/debian/control/control"}.
+{template, "xnode_debian_postinst",  "{{app}}/debian/control/postinst"}.
+{chmod, "{{app}}/debian/control/postinst", 8#755}.
+{template, "xnode_debian_prerm",  "{{app}}/debian/control/prerm"}.
+{chmod, "{{app}}/debian/control/prerm", 8#755}.
+
+%% service files for application
+{dir, "{{app}}/debian/service"}.
+{template, "xnode_app_service", "{{app}}/debian/service/{{app}}.service"}.
+
+%% ct test directory
+{dir, "{{app}}/test/regression"}.
+{dir, "{{app}}/test/stubs"}.
+{template, "xnode_test_suite_erl", "{{app}}/test/regression/{{app}}_test_SUITE.erl"}.
+{template, "xnode_ct_erl", "{{app}}/test/regression/{{app}}_ct.erl"}.
+
+%% OTP app
+{dir, "{{app}}/src"}.
+{dir, "{{app}}/priv"}.
+{dir, "{{app}}/include"}.
+{template, "xnode_app_src", "{{app}}/src/{{app}}.app.src"}.
+{template, "xnode_app_erl", "{{app}}/src/{{app}}.erl"}.
+{template, "xnode_gitignore", "{{app}}/.gitignore"}.
+{template, "xnode_license", "{{app}}/LICENSE"}.
+{template, "xnode_readme", "{{app}}/README.md"}.
+
+{dir, "{{app}}/.circleci"}.
+{template, "xnode_ci_dockerfile", "{{app}}/.circleci/Dockerfile"}.
+{template, "xnode_ci_config_yml", "{{app}}/.circleci/config.yml"}.
+{template, "xnode_notify_slack.sh", "{{app}}/.circleci/notify-slack.sh"}.
+{chmod, "{{app}}/.circleci/notify-slack.sh", 8#755}.
+{template, "xnode_setup_aws_credentials.sh", "{{app}}/.circleci/setup-aws-credentials.sh"}.
+{chmod, "{{app}}/.circleci/setup-aws-credentials.sh", 8#755}.

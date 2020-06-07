@@ -1,0 +1,21 @@
+{node_name, "{{app}}"}.
+
+{app_name, "{{app}}"}.
+
+{log_dir, "/var/log/xaptum"}.
+
+{install_dir, "/opt/xaptum"}.
+
+{tmp_dir, "/var/tmp/xaptum"}.
+
+{lib_dir, "/var/lib/xaptum"}.
+
+{erlang_cookie, "{{app}}cookie"}.
+
+{erlang_max_ports, 4096}.
+
+{erlang_max_processes, 262144}.
+
+{lager_log_level, info}.
+
+{proto_dist, xepmd_inet}.

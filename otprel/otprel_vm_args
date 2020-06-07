@@ -1,0 +1,23 @@
+-name {{node_name}}
+
+-setcookie {{erlang_cookie}}
+
+-proto_dist {{proto_dist}}
+-start_epmd false
+-epmd_module xepmd_client
+-ssl_dist_optfile "{{install_dir}}/{{node_name}}/releases/{{rel_vsn}}/dist.conf"
+
+## Enable kernel poll and a few async threads
+##+K true
+##+A 5
+##+P 134217727
+
++P {{erlang_max_processes}}
++K true
++A 64
+
+## Increase number of concurrent ports/sockets - Max is 134217727
+-env ERL_MAX_PORTS {{erlang_max_ports}}
+
+## Tweak GC to run more often
+##-env ERL_FULLSWEEP_AFTER 10

@@ -7,23 +7,20 @@
 ```
 $ rebar3 new
 ...
-otp-lib (custom): Complete OTP Library application structure
+otplib (custom): Complete OTP Library application structure
 ...
 ```
 
 ### Usage
-1. *xlib* Templates
-
-- Create a new project directory `<libname>`
-- Create the project structure
 ```
-$ cd <libname>
-$ rebar3 new xlib <libname>
+$ rebar3 new otplib <libname>
 ```
 
-This creates the following directory structure
+This creates a new directory `<libname>` with the following directory structure
 ```
 .
+├── ebump
+├── ebump.config
 ├── elvis
 ├── elvis.config
 ├── include
@@ -33,12 +30,14 @@ This creates the following directory structure
 ├── README.md
 ├── rebar.config
 ├── src
-│   ├── <libname>.app.src
-│   └── <libname>.erl
+│   ├── <libname>.app.src
+│   └── <libname>.erl
 └── test
     ├── stubs
+    │   ├── <libname>_ct.erl
+    │   └── sys.config	
     └── suites
         └── <libname>_test_SUITE.erl
 
-6 directories, 9 files
+6 directories, 13 files
 ```

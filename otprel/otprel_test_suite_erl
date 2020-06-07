@@ -1,0 +1,51 @@
+-module({{app}}_test_SUITE).
+
+-include_lib("common_test/include/ct.hrl").
+-include_lib("eunit/include/eunit.hrl"). % Eunit macros for convenience
+
+-export([all/0
+        ,groups/0
+        ,init_per_suite/1, end_per_suite/1
+        ,init_per_group/2, end_per_group/2
+        %%,init_per_testcase/2, end_per_testcase/2
+        ]).
+
+-export([
+         {{app}}_test/1
+        ]).
+
+%%=================================================
+%% Test Setup
+%%=================================================
+all() ->
+    [{group, {{app}}_tests}].
+
+groups() ->
+    [{{{app}}_tests, [], [{{app}}_test]}].
+
+init_per_suite(Config) ->
+    Config.
+
+end_per_suite(_Config) ->
+    ok.
+
+init_per_group({{app}}_tests, Config) ->
+    %% test setup for group {{app}}_tests
+    Config;
+
+init_per_group(_, Config) ->
+    Config.
+
+end_per_group({{app}}_tests, _Config) ->
+    %% teardown test setup for group {{app}}_tests
+    ok;
+
+end_per_group(_Name, _Config) ->
+    ok.
+
+
+%%=================================================
+%% Test Cases
+%%=================================================
+{{app}}_test(_Config) ->
+    ?assert(false).

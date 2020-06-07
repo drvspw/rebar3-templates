@@ -1,0 +1,79 @@
+{{=@@ @@=}}
+{minimum_otp_vsn, "22.0"}.
+
+{erl_opts, [debug_info,
+            {parse_transform, lager_transform}
+           ]
+}.
+
+{deps, [
+%%  {uuid, ".*", {git, "https://github.com/avtobiff/erlang-uuid.git", {branch, "master"}}},
+
+  {qdate, ".*", {git, "https://github.com/choptastic/qdate", {branch, "master"}}},
+  {xepmd, ".*", {git, "git@github.com:xaptum/xepmd.git", {tag, "2.1"}}},
+  {lager, ".*", {git, "https://github.com/erlang-lager/lager", {branch, "master"}} },
+  {xrecon, ".*", {git, "git@github.com:xaptum/xrecon.git", {tag, "1.20.02-m2-92ab665"}}}
+]}.
+
+
+{project_plugins, [{rebar3_lint, "0.1.9"}]}.
+
+{plugins, [
+           rebar3_appup_plugin,
+           { todo, ".*", {git, "https://github.com/drvspw/rebar3-todo-plugin.git", {branch, "master"}}}
+]}.
+
+{provider_hooks, [
+    {pre, [
+    ]},
+    {post, [
+    ]}
+]}.
+
+{pre_hooks, [
+             {compile, "mkdir -p priv"}
+            ]}.
+
+{post_hooks,
+        [
+         {compile, "echo \"environment: ${@@app@@_ENV}\" > priv/build_id"},
+         {compile, "echo \"version: `./.package.sh version`\" >> priv/build_id"}
+        ]
+}.
+
+{cover_enabled, true}.
+{cover_export_enabled, true}.
+
+%% xref configurations
+{xref_checks,[undefined_function_calls, undefined_functions,
+              deprecated_function_calls, deprecated_functions]}.
+
+%% relx release configurations
+{relx, [{release, {'@@app@@', {cmd, "./.package.sh version"}},
+         ['@@app@@']},
+
+        {dev_mode, false},
+        {include_erts, true},
+        {system_libs, false},
+
+        {overlay_vars, "./config/local.vars"},
+        {overlay, [
+                   {template, "./config/sys.config", "releases/{{rel_vsn}}/sys.config"},
+                   {template, "./config/vm.args", "releases/{{rel_vsn}}/vm.args"},
+                   {template, "./config/dist.conf", "releases/{{rel_vsn}}/dist.conf"}
+                  ]},
+        {extended_start_script, true}]
+}.
+
+{profiles, [
+            {test, [{deps, [
+                            {meck, ".*",{git, "https://github.com/eproxus/meck.git", {tag, "0.8.8"}}},
+                            {elli, "3.0.0"}
+                           ]},
+                    {relx, [{overlay_vars, ["./config/local.vars", "./config/test.vars"]}]}
+                   ]},
+            {prod, [{erl_opts, [no_debug_info]},
+                    {relx, [{dev_mode, false}, {include_erts, true}, {include_src, false},
+                            {overlay_vars, ["./config/local.vars", "./config/prod.vars"]}]}]},
+            {dev, [{relx, [{overlay_vars, ["./config/local.vars", "./config/dev.vars"]}]}]}
+]}.

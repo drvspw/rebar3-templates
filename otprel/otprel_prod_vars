@@ -1,0 +1,9 @@
+{erlang_max_ports, 134217727}.
+
+{erlang_max_processes, 134217727}.
+
+{erlang_cookie, "4bbd7afb81b744714b63613b9359b570"}.
+
+{lager_log_level, error}.
+
+{proto_dist, xepmd_tls}.

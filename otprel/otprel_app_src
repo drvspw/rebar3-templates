@@ -1,0 +1,27 @@
+{{=@@ @@=}}
+{application, @@app@@,
+ [{description, "@@desc@@"},
+  {vsn, {cmd, "./.package.sh version"}},
+  {registered, []},
+  {mod, {'@@app@@', []}},
+
+  {applications,
+   [kernel,
+    stdlib,
+    sasl,
+
+%%    uuid,
+
+    qdate,
+    xepmd,
+    lager,
+    xrecon
+   ]},
+
+  {env,[]},
+  {modules, []},
+
+  {contributors, []},
+  {licenses, []},
+  {links, []}
+ ]}.

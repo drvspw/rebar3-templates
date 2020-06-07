@@ -1,0 +1,190 @@
+{{=@@ @@=}}
+-module(@@app@@).
+
+%% api
+-export([get_application/0,
+         get_env/2,
+         current_time/0,
+         current_time_ms/0,
+         current_time_to_datetime/0,
+         current_time_to_iso8601/0,
+         timestamp_to_datetime/1,
+         timestamp_to_iso8601/1,
+         is_pid_alive/1,
+         priv_dir/0,
+         log_level/1,
+         csv_to_list/1,
+
+         get_host_fqdn/0,
+
+         pipe/2,
+
+         tc/1,
+         tc/2,
+         tc/3
+         ]).
+
+%% Application behaviour and callbacks
+-behaviour(application).
+
+-export([start/2, stop/1]).
+
+%% supervisor behaviour and callbacks
+-behaviour(supervisor).
+
+%% API
+-export([start_link/0]).
+
+%% Supervisor callbacks
+-export([init/1]).
+
+-define(SERVER, ?MODULE).
+
+%%%-------------------------------------------------------------------
+%% @doc @@app@@ public API
+%% @end
+%%%-------------------------------------------------------------------
+get_application() ->
+    application:get_application(?MODULE).
+
+get_env(App, EnvVar) ->
+    case application:get_env(App, EnvVar) of
+        undefined -> no_default_env_value;
+        V -> V
+    end.
+
+priv_dir() ->
+    case code:priv_dir(?MODULE) of
+        {error, bad_name} ->
+            lager:info("Couldn't find priv dir for the application, using ./priv~n"), "./priv";
+        PrivDir -> filename:absname(PrivDir)
+    end.
+
+current_time() ->
+    {Mega, Sec, Micro} = os:timestamp(),
+    (Mega * 1000000 + Sec) * 1000000 + Micro.
+
+current_time_ms() ->
+    {Mega, Sec, Micro} = os:timestamp(),
+    (Mega*1000000 + Sec)*1000 + round(Micro/1000).
+
+current_time_to_datetime() ->
+    TimeStamp = @@app@@:current_time_ms(),
+    @@app@@:timestamp_to_datetime(TimeStamp).
+
+current_time_to_iso8601() ->
+    TimeStamp = @@app@@:current_time_ms(),
+    @@app@@:timestamp_to_iso8601(TimeStamp).
+
+timestamp_to_datetime(TimeStamp) ->
+    UnixEpochGS = calendar:datetime_to_gregorian_seconds({{1970, 1, 1}, {0, 0, 0}}),
+    GregorianSeconds = (TimeStamp div 1000) + UnixEpochGS,
+    calendar:universal_time_to_local_time(calendar:gregorian_seconds_to_datetime(GregorianSeconds)).
+
+timestamp_to_iso8601(TimeStamp) ->
+    Now = @@app@@:timestamp_to_datetime(TimeStamp),
+    ec_date:format_iso8601(Now).
+
+is_pid_alive(Pid) when node(Pid) =:= node() ->
+    is_process_alive(Pid);
+is_pid_alive(Pid) ->
+    lists:member(node(Pid), nodes()) andalso (rpc:call(node(Pid), erlang, is_process_alive, [Pid]) =:= true).
+
+log_level(info) ->
+    set_loglevel(info);
+log_level(error) ->
+    set_loglevel(error).
+
+csv_to_list(Q) when is_binary(Q) ->
+    S = binary_to_list(Q),
+    L = string:tokens(S, ","),
+    [ list_to_binary(string:trim(X)) || X <- L ];
+
+csv_to_list(S) when is_list(S) ->
+    L = string:tokens(S, ","),
+    [ string:trim(X) || X <- L ].
+
+pipe(Init, Funs) ->
+    lists:foldl( fun(F, State) -> F(State) end, Init, Funs).
+
+tc(F) ->
+    {T, V} = timer:tc(F),
+    lager:info("~p() execution time ~p", [F, T]),
+    V.
+
+tc(F, A) ->
+    {T, V} = timer:tc(F, A),
+    lager:info("~p() execution time ~p", [F, T]),
+    V.
+
+tc(M, F, A) ->
+    {T, V} = timer:tc(M, F, A),
+    lager:info("~p:~p() execution time ~p", [M, F, T]),
+    V.
+
+get_host_fqdn() ->
+    {ok, HostName} = inet:gethostname(),
+    {ok, {hostent, FullHostName, _, inet, _, _}} = inet:gethostbyname(HostName),
+    {ok, FullHostName}.
+
+%%--------------------------------------------------------------------
+
+%%%-------------------------------------------------------------------
+%% @doc @@app@@ application callbacks
+%% @end
+%%%-------------------------------------------------------------------
+start(_StartType, _StartArgs) ->
+    {ok, Pid} = ?MODULE:start_link(),
+
+    {ok, Pid}.
+
+stop(_State) ->
+    ok.
+%%--------------------------------------------------------------------
+
+%%%-------------------------------------------------------------------
+%% @doc @@app@@ top level supervisor.
+%% @end
+%%%-------------------------------------------------------------------
+start_link() ->
+    supervisor:start_link({local, ?SERVER}, ?MODULE, []).
+
+%%====================================================================
+%% Supervisor callbacks
+%%====================================================================
+%% child_spec() = #{ id => child_name,
+%%                   start => {child_module, child_start_link_fun, []},
+%%                   restart => permanent,
+%%                   shutdown => 2000,
+%%                   type => worker,
+%%                   modules => [child_module]
+%%                  }
+
+init([]) ->
+    RestartStrategy = {one_for_one, 4, 3600},
+    Children = [], %% [ child_spec() ]
+    {ok, {RestartStrategy, Children}}.
+
+%%--------------------------------------------------------------------
+
+%%====================================
+%% Private functions
+%%====================================
+set_loglevel(Level) ->
+    {ok, App} = @@app@@:get_application(),
+    {ok, LogFile} = @@app@@:get_env(App, log_file),
+    lager:set_loglevel(lager_file_backend, LogFile, Level).
+
+%%=========================================================================
+%% Unit Test Suite
+%%=========================================================================
+-ifdef(TEST).
+
+-include_lib("eunit/include/eunit.hrl").
+
+suite_test_() ->
+  [
+    ?_assert(false)
+  ].
+
+-endif.
