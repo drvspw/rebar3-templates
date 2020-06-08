@@ -1,7 +1,7 @@
 {{=@@ @@=}}
 {application, @@name@@,
  [{description, "@@desc@@"},
-  {vsn, {cmd, "./.package.sh version"}},
+  {vsn, {cmd, "./ebump current"}},
   {registered, []},
   {mod, {'@@name@@', []}},
 
@@ -11,11 +11,10 @@
     sasl,
 
 %%    uuid,
+%%    erldist,
+%%    erlutil,
+    lager
 
-    qdate,
-    erldist,
-    lager,
-    xrecon
    ]},
 
   {env,[]},

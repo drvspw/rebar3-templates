@@ -5,8 +5,8 @@
            ]}.
 
 {deps, [
-        {lager, ".*", {git, "https://github.com/erlang-lager/lager", {tag, "3.6.10"}}}
-        %%,{uuid, ".*", {git, "https://github.com/avtobiff/erlang-uuid.git", {branch, "master"}}}
+        {lager, {git, "https://github.com/erlang-lager/lager", {tag, "3.6.10"}}}
+        %%,{uuid, {git, "https://github.com/avtobiff/erlang-uuid.git", {tag, "v0.5.2"}}}
 ]}.
 
 {shell, [{apps, [{{name}}]}]}.

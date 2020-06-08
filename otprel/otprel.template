@@ -19,10 +19,6 @@
 %% makefile
 {template, "otprel_makefile", "{{name}}/Makefile"}.
 
-%% .package.sh
-{template, "otprel_package.sh", "{{name}}/.package.sh"}.
-{chmod, "{{name}}/.package.sh", 8#755}.
-
 %% rebar.config
 {template, "otprel_rebar_config", "{{name}}/rebar.config"}.
 
@@ -37,17 +33,20 @@
 {template, "otprel_sys_config", "{{name}}/config/sys.config"}.
 {file, "otprel_dist_conf", "{{name}}/config/dist.conf"}.
 
-%% debain control files
-{dir, "{{name}}/debian/control"}.
-{template, "otprel_debian_control",  "{{name}}/debian/control/control"}.
-{template, "otprel_debian_postinst",  "{{name}}/debian/control/postinst"}.
-{chmod, "{{name}}/debian/control/postinst", 8#755}.
-{template, "otprel_debian_prerm",  "{{name}}/debian/control/prerm"}.
-{chmod, "{{name}}/debian/control/prerm", 8#755}.
+%% package directory
+{dir, "{{name}}/package/deb"}.
+{template, "otprel_package.sh", "{{name}}/package/package.sh"}.
+{chmod, "{{name}}/package/package.sh", 8#755}.
+{template, "otprel_debian_control",  "{{name}}/package/deb/control"}.
+{template, "otprel_debian_postinst",  "{{name}}/package/deb/postinst"}.
+{chmod, "{{name}}/package/deb/postinst", 8#755}.
+{template, "otprel_debian_prerm",  "{{name}}/package/deb/prerm"}.
+{chmod, "{{name}}/package/deb/prerm", 8#755}.
+
 
 %% service files for application
-{dir, "{{name}}/debian/service"}.
-{template, "otprel_app_service", "{{name}}/debian/service/{{name}}.service"}.
+{dir, "{{name}}/package/systemd"}.
+{template, "otprel_app_service", "{{name}}/package/systemd/{{name}}.service"}.
 
 %% ct test directory
 {dir, "{{name}}/test/regression"}.
@@ -66,6 +65,6 @@
 {template, "otprel_readme", "{{name}}/README.md"}.
 
 {dir, ".github/workflows"}.
-{template, "otplib_ci_makefile", "{{name}}/.github/workflows/Makefile"}.
-{template, "otplib_ci_dockerfile", "{{name}}/.github/workflows/Dockerfile"}.
-{template, "otplib_gh_workflow.yml", "{{name}}/.github/workflows/main.yml"}.
+{template, "otprel_ci_makefile", "{{name}}/.github/workflows/Makefile"}.
+{template, "otprel_ci_dockerfile", "{{name}}/.github/workflows/Dockerfile"}.
+{template, "otprel_gh_workflow.yml", "{{name}}/.github/workflows/main.yml"}.

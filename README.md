@@ -6,4 +6,11 @@
 - NIF's using [rustler](https://github.com/hansihe/rustler)
 
 ### Installation
-Instructions are in README files in each of the directories
+1. Create the global variables file in `$HOME/.config/rebar3/templates/globals` with the following contents
+```
+{variables, [
+    {copyright_owner, "YOUR NAME"},
+	{gh_owner, "GITHUB OWNER"}
+   ]}.
+```
+2. Follow instructions are in README files in each of the directories

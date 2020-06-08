@@ -7,17 +7,16 @@
 }.
 
 {deps, [
-  {erldist, ".*", {git, "https://github.com/drvspw/erldist", {tag, "1.0"}}},
-  {lager, ".*", {git, "https://github.com/erlang-lager/lager", {branch, "master"}} },
-  {erlutil, ".*", {git, "https://github.com/drvspw/erlutil", {tag, "1.0"}}}
+%%  {erldist, {git, "https://github.com/drvspw/erldist", {tag, "1.0"}}},
+%%  {erlutil, {git, "https://github.com/drvspw/erlutil", {tag, "1.0"}}},
+%%  {uuid, {git, "https://github.com/avtobiff/erlang-uuid.git", {tag, "v0.5.2"}}},
+  {lager, {git, "https://github.com/erlang-lager/lager", {tag, "3.6.10"}}}
 ]}.
 
 
 {project_plugins, [{rebar3_lint, "0.1.11"}]}.
 
 {plugins, [
-           rebar3_appup_plugin,
-           { todo, ".*", {git, "https://github.com/drvspw/rebar3-todo-plugin.git", {branch, "master"}}}
 ]}.
 
 {provider_hooks, [
@@ -33,8 +32,7 @@
 
 {post_hooks,
         [
-         {compile, "echo \"environment: ${@@name@@_ENV}\" > priv/build_id"},
-         {compile, "echo \"version: `./.package.sh version`\" >> priv/build_id"}
+         {compile, "echo \"version: `./ebump current`\" >> priv/build_id"}
         ]
 }.
 
@@ -46,7 +44,7 @@
               deprecated_function_calls, deprecated_functions]}.
 
 %% relx release configurations
-{relx, [{release, {'@@name@@', {cmd, "./.package.sh version"}},
+{relx, [{release, {'@@name@@', {cmd, "./ebump current"}},
          ['@@name@@']},
 
         {dev_mode, false},

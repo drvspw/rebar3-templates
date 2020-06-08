@@ -9,10 +9,9 @@ endif
 RELPATH = _build/default/rel/$(APPNAME)
 TESTRELPATH = _build/test/rel/$(APPNAME)
 PRODRELPATH = _build/prod/rel/$(APPNAME)
-DEVRELPATH = _build/dev/rel/$(APPNAME)
 
 SHELL = /bin/bash
-APPVSN = $(shell ./.package.sh version)
+APPVSN = $(shell ./ebump current)
 
 # dialyzer
 LINTERS = lint xref eunit
@@ -25,10 +24,6 @@ export CT_APPVSN = $(APPVSN)
 export CT_RELPATH = $(BASEDIR)/_build/dev1/rel/$(APPNAME)
 
 .DEFAULT_GOAL := help
-
-ifndef {{name}}_ENV
-export {{name}}_ENV = local
-endif
 
 .PHONY: lint debian deploy tag help
 
@@ -74,28 +69,12 @@ prod-tar: prod-release ## prod tar
 	cd $(PRODRELPATH)/../ && rm -f $(APPNAME).tar.gz && tar -cvf $(APPNAME).tar $(APPNAME)/ && gzip $(APPNAME).tar
 	mv $(PRODRELPATH)/../$(APPNAME).tar.gz $(BASEDIR)/_build/
 
-dev-release: regression-test
-	$(REBAR) as dev release
-
-dev-tar: dev-release
-	cd $(DEVRELPATH)/../ && rm -f $(APPNAME).tar.gz && tar -cvf $(APPNAME).tar $(APPNAME)/ && gzip $(APPNAME).tar
-	mv $(DEVRELPATH)/../$(APPNAME).tar.gz $(BASEDIR)/_build/
-
-todo: ## list todos
-	$(REBAR) todo
-
 clean: ## clean
-	$(REBAR) clean
-	rm -rf _build
+	sudo $(REBAR) clean
+	sudo rm -rf _build
 
 debian: ## create deb
-	./.package.sh debian
-
-deploy: ## upload to apt
-	./.package.sh deploy
-
-tag: ## tag release
-	./.package.sh tag
+	package/package.sh debian
 
 help: ## Display help information
 	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'
