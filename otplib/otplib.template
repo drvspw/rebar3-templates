@@ -11,6 +11,9 @@
 %% elvis
 {file, "otplib_elvis.config", "{{name}}/elvis.config"}.
 
+%% editorconfig
+{file, "otplib_editorconfig", "{{name}}/.editorconfig"}.
+
 %% ebump
 {file, "otplib_ebump_config", "{{name}}/ebump.config"}.
 {file, "otplib_ebump", "{{name}}/ebump"}.
