@@ -33,7 +33,7 @@
           {log_root, "{{log_dir}}"},
           {handlers, [
                       {lager_file_backend, [{file, "{{node_name}}.log"}, {level, {{lager_log_level}}},
-                                            {size, 10485760}, {date, "$D0"}, {count, 5}]}
+                                            {size, 10485760}, {count, 5}]}
                      ]},
 
           %% Any other sinks

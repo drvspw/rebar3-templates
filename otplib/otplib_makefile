@@ -2,40 +2,46 @@ BASEDIR = $(shell pwd)
 APPNAME = $(shell basename $(BASEDIR))
 REBAR = rebar3
 
-LINTERS = lint xref eunit
+LINTERS = check-deps lint xref eunit
 
 REGRESSION_TEST_DIR := test/
 REGRESSION_TEST_FILES := $(shell find $(REGRESSION_TEST_DIR) -name '*_SUITE.erl' -exec basename '{}' \;)
 REGRESSION_TEST_SUITES := $(shell echo $(REGRESSION_TEST_FILES) | sed -e 's/.erl//g' | sed -e 's/ /,/g')
 
-compile:
+compile: ## compile
 	$(REBAR) compile
 
-eunit:
+eunit: ## run eunit tests
 	$(REBAR) eunit
 
-xref:
+xref: ## xref analysis
 	$(REBAR) xref
 
-dialyzer:
+dialyzer: ## dialyzer
 	$(REBAR) dialyzer
 
-lint:
+check-deps: ## check dependencies
+	$(REBAR) check-deps
+
+Lint: ## lint
 	$(REBAR) lint
 
-test: $(LINTERS)
+test: $(LINTERS) ## run ct test suites
 	$(REBAR) ct -v \
 	--dir $(REGRESSION_TEST_DIR) \
 	--suite=$(REGRESSION_TEST_SUITES) \
 	--include $(BASEDIR)/include \
 	--sys_config $(BASEDIR)/test/stubs/sys.config
 
-console: test
+console: test ## launch a shell
 	$(REBAR) shell
 
-clean:
+clean: ## clean
 	$(REBAR) clean
 	rm -rf _build
 
-test-coverage-report:
+test-coverage-report: ## generate test coverage report
 	$(REBAR) cover --verbose
+
+help: ## Display help information
+	@grep -E '^[a-zA-Z0-9_-]+:.*?## .*$$' $(MAKEFILE_LIST) | sort | awk 'BEGIN {FS = ":.*?## "}; {printf "\033[36m%-30s\033[0m %s\n", $$1, $$2}'

@@ -14,7 +14,7 @@ SHELL = /bin/bash
 APPVSN = $(shell ./ebump current)
 
 # dialyzer
-LINTERS = lint xref eunit
+LINTERS = check-deps lint xref eunit
 
 REGRESSION_TEST_DIR := test/regression
 REGRESSION_TEST_FILES := $(shell find $(REGRESSION_TEST_DIR) -name '*_SUITE.erl' -exec basename '{}' \;)
@@ -25,7 +25,7 @@ export CT_RELPATH = $(BASEDIR)/_build/dev1/rel/$(APPNAME)
 
 .DEFAULT_GOAL := help
 
-.PHONY: lint debian deploy tag help
+.PHONY: check-deps lint debian deploy tag help
 
 compile: ## compile
 	$(REBAR) compile
@@ -41,6 +41,9 @@ dialyzer: ## dialyzer
 
 lint: ## lint
 	$(REBAR) lint
+
+check-deps: ## check dependencies
+	$(REBAR) check-deps
 
 release: $(LINTERS) ## release
 	$(REBAR) release

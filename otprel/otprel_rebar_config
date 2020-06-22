@@ -14,7 +14,7 @@
 ]}.
 
 
-{project_plugins, [{rebar3_lint, "0.1.11"}]}.
+{project_plugins, [{rebar3_lint, "0.1.11"}, {rebar3_check_deps, "0.1.0"}]}.
 
 {plugins, [
 ]}.
