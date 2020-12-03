@@ -4,7 +4,7 @@
             {parse_transform, lager_transform}
            ]}.
 
-{extra_src_dirs, [{"test", [{recursive, true}]}]}.
+%% {extra_src_dirs, [{"test", [{recursive, true}]}]}.
 
 {deps, [
         {lager, {git, "https://github.com/erlang-lager/lager", {tag, "3.6.10"}}}
