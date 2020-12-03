@@ -6,6 +6,8 @@
            ]
 }.
 
+{extra_src_dirs, [{"test", [{recursive, true}]}]}.
+
 {deps, [
 %%  {erldist, {git, "https://github.com/drvspw/erldist", {tag, "1.0"}}},
 %%  {erlutil, {git, "https://github.com/drvspw/erlutil", {tag, "1.0"}}},
