@@ -55,9 +55,9 @@
 
         {overlay_vars, "./config/local.vars"},
         {overlay, [
-                   {template, "./config/sys.config", "releases/{{rel_vsn}}/sys.config"},
-                   {template, "./config/vm.args", "releases/{{rel_vsn}}/vm.args"},
-                   {template, "./config/dist.conf", "releases/{{rel_vsn}}/dist.conf"}
+                   {template, "./config/sys.config", "releases/{{release_version}}/sys.config"},
+                   {template, "./config/vm.args", "releases/{{release_version}}/vm.args"},
+                   {template, "./config/dist.conf", "releases/{{release_version}}/dist.conf"}
                   ]},
         {extended_start_script, true}]
 }.
