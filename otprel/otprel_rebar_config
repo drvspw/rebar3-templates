@@ -2,6 +2,9 @@
 {minimum_otp_vsn, "22.0"}.
 
 {erl_opts, [debug_info,
+            {extra_src_dirs, [
+                              {"test", [{recursive, true}]}
+                             ]},
             {parse_transform, lager_transform}
            ]
 }.
@@ -51,7 +54,7 @@
 
         {dev_mode, false},
         {include_erts, true},
-        {system_libs, false},
+        {system_libs, true},
 
         {overlay_vars, "./config/local.vars"},
         {overlay, [
