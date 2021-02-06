@@ -13,4 +13,4 @@
 	{gh_owner, "GITHUB OWNER"}
    ]}.
 ```
-2. Follow instructions are in README files in each of the directories
+2. Follow instructions from README in each of the directories
