@@ -23,7 +23,7 @@ dialyzer: ## dialyzer
 check-deps: ## check dependencies
 	$(REBAR) check-deps
 
-Lint: ## lint
+lint: ## lint
 	$(REBAR) lint
 
 test: $(LINTERS) ## run ct test suites
