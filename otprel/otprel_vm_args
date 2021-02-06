@@ -7,7 +7,7 @@
 -epmd_module erldist_epmd
 -erldist_protocol {{proto_dist}}
 
--ssl_dist_optfile "{{install_dir}}/{{node_name}}/releases/{{rel_vsn}}/dist.conf"
+-ssl_dist_optfile "{{install_dir}}/{{node_name}}/releases/{{release_version}}/dist.conf"
 
 ## Enable kernel poll and a few async threads
 ##+K true
