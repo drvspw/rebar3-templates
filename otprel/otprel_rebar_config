@@ -2,14 +2,11 @@
 {minimum_otp_vsn, "22.0"}.
 
 {erl_opts, [debug_info,
-            {extra_src_dirs, [
-                              {"test", [{recursive, true}]}
-                             ]},
             {parse_transform, lager_transform}
            ]
 }.
 
-%% {extra_src_dirs, [{"test", [{recursive, true}]}]}.
+{extra_src_dirs, [{"test", [{recursive, true}]}]}.
 
 {deps, [
 %%  {erldist, {git, "https://github.com/drvspw/erldist", {tag, "1.0"}}},
