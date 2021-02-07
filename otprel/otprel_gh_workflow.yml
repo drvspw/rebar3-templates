@@ -11,7 +11,7 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: docker://@@gh_owner@@/@@name@@-build # erlang:22.2.3
+      image: ghcr.io/@@gh_owner@@/@@name@@-build # erlang:22.2.3
 
     steps:
     - uses: actions/checkout@v1
