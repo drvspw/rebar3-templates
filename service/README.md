@@ -1,19 +1,8 @@
 `rebar3` custom templates for OTP releases.
 
-### Installation
-1. Clone this repository
-2. Copy all the files in `otprel` directory to `~/.config/rebar3/templates/`
-3. Check if the templates are available
-```
-$ rebar3 new
-...
-otprel (custom): Complete OTP Release application structure
-...
-```
-
 ### Usage
 ```
-$ rebar3 new otprel <appname>
+$ rebar3 new service <appname>
 ```
 
 This creates a new directory `<appname>` with the following directory structure
@@ -51,11 +40,3 @@ This creates a new directory `<appname>` with the following directory structure
 
 10 directories, 20 files
 ```
-
-## CAVEAT
-Using *xnode* template requires an additional step:
-```
-$ grep -ilr <appname>_ENV .
-```
-
-In each file listed by the above command make `<appname>_ENV` ALL CAPS.

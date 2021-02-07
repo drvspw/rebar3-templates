@@ -1,0 +1,15 @@
+{description, "Rust NIF's using rustler in rustler/"}.
+{variables, [
+    {name, "rust_nif", "NIF name"}
+]}.
+
+
+{dir, "rustler/src"}.
+{dir, "src"}.
+
+{template, "rustler/rnif_nif.erl", "./src/{{name}}_nif.erl"}.
+{template, "rustler/rnif_lib.rs", "./rustler/src/lib.rs"}.
+{template, "rustler/rnif_mod.rs", "./rustler/src/{{name}}.rs"}.
+{template, "rustler/rnif_makefile", "./rustler/Makefile"}.
+{template, "rustler/rnif_cargo.toml", "./rustler/Cargo.toml"}.
+{template, "rustler/rnif_rebar_config_script", "./rebar.config.script"}.

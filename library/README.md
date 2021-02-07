@@ -1,19 +1,8 @@
 `rebar3` custom templates for OTP libraries.
 
-### Installation
-1. Clone this repository
-2. Copy all the files in `otplib` directory to `~/.config/rebar3/templates/`
-3. Check if the templates are available
-```
-$ rebar3 new
-...
-otplib (custom): Complete OTP Library application structure
-...
-```
-
 ### Usage
 ```
-$ rebar3 new otplib <libname>
+$ rebar3 new library <libname>
 ```
 
 This creates a new directory `<libname>` with the following directory structure

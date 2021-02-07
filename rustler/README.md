@@ -1,16 +1,5 @@
 `rebar3` custom template for creating NIF's using [rustler](https://github.com/hansihe/rustler)
 
-### Installation
-1. Clone this repository
-2. Copy all the files in `rustler` directory to `~/.config/rebar3/templates/`
-3. Check if the templates are available
-```
-$ rebar3 new
-...
-rnif (custom): Rust NIF's using rustler
-...
-```
-
 ### Usage
 1. Create a new OTP project using `rebar3`
 ```
@@ -20,7 +9,7 @@ rnif (custom): Rust NIF's using rustler
 2. Create NIF from template
 ```
 $ cd <lib name>
-$ rebar3 new rnif <name>
+$ rebar3 new rustler <name>
 ```
 
 This creates the following files in the current directory:

@@ -1,0 +1,74 @@
+{description, "Complete OTP Release application structure"}.
+
+{variables, [
+    {name, "", "Application name"},
+    {desc, "An OTP release application", "Short description of the release's main app's purpose"},
+    {svc, "t"}
+]}.
+
+%% create app directory
+{dir, "{{name}}"}.
+
+%% elvis
+{file, "common/elvis.config", "{{name}}/elvis.config"}.
+
+%% editorconfig
+{file, "common/editorconfig", "{{name}}/.editorconfig"}.
+
+%% ebump
+{file, "common/ebump.config", "{{name}}/ebump.config"}.
+{file, "common/ebump", "{{name}}/ebump"}.
+{chmod, "{{name}}/ebump", 8#755}.
+
+%% makefile
+{template, "service/svc_makefile", "{{name}}/Makefile"}.
+
+%% rebar.config
+{template, "service/svc_rebar.config", "{{name}}/rebar.config"}.
+
+%% overlay vars
+{dir, "{{name}}/config"}.
+{template, "service/svc_local.vars", "{{name}}/config/local.vars"}.
+{template, "service/svc_prod.vars", "{{name}}/config/prod.vars"}.
+{template, "service/svc_test.vars", "{{name}}/config/test.vars"}.
+
+%% vm.args
+{file, "service/svc_vm.args", "{{name}}/config/vm.args"}.
+{template, "service/svc_sys.config", "{{name}}/config/sys.config"}.
+{file, "service/svc_dist.conf", "{{name}}/config/dist.conf"}.
+
+%% package directory
+{dir, "{{name}}/package/deb"}.
+{template, "service/svc_package.sh", "{{name}}/package/package.sh"}.
+{chmod, "{{name}}/package/package.sh", 8#755}.
+{template, "service/svc_debian_control",  "{{name}}/package/deb/control"}.
+{template, "service/svc_debian_postinst",  "{{name}}/package/deb/postinst"}.
+{chmod, "{{name}}/package/deb/postinst", 8#755}.
+{template, "service/svc_debian_prerm",  "{{name}}/package/deb/prerm"}.
+{chmod, "{{name}}/package/deb/prerm", 8#755}.
+
+
+%% service files for application
+{dir, "{{name}}/package/systemd"}.
+{template, "service/svc_app.service", "{{name}}/package/systemd/{{name}}.service"}.
+
+%% ct test directory
+{dir, "{{name}}/test/regression"}.
+{dir, "{{name}}/test/stubs"}.
+{template, "common/test_suite.erl", "{{name}}/test/regression/{{name}}_test_SUITE.erl"}.
+{template, "common/ct.erl", "{{name}}/test/stubs/{{name}}_ct.erl"}.
+
+%% OTP app
+{dir, "{{name}}/src"}.
+{dir, "{{name}}/priv"}.
+{dir, "{{name}}/include"}.
+{template, "service/svc_app.src", "{{name}}/src/{{name}}.app.src"}.
+{template, "service/svc_app.erl", "{{name}}/src/{{name}}.erl"}.
+{template, "common/gitignore", "{{name}}/.gitignore"}.
+{template, "common/license", "{{name}}/LICENSE"}.
+{template, "common/readme", "{{name}}/README.md"}.
+
+{dir, ".github/workflows"}.
+{template, "common/gh_makefile", "{{name}}/.github/workflows/Makefile"}.
+{template, "common/gh_dockerfile", "{{name}}/.github/workflows/Dockerfile"}.
+{template, "common/gh_workflow.yml", "{{name}}/.github/workflows/main.yml"}.
