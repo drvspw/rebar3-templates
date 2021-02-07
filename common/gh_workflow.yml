@@ -16,11 +16,17 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
+@@#lib@@      
+    - name: Build and Test
+      run: make test
+@@/lib@@
+@@#svc@@
     - name: Build and Test
       run: make prod-tar
 
     - name: Create .deb file
       run: make debian
+@@/svc@@
 
   release:
     needs: build

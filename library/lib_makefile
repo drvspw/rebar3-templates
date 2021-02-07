@@ -1,6 +1,10 @@
 BASEDIR = $(shell pwd)
-APPNAME = $(shell basename $(BASEDIR))
 REBAR = rebar3
+
+APPNAME = $(shell basename $(BASEDIR))
+ifneq ($(APPNAME), {{name}})
+  APPNAME = {{name}}
+endif
 
 LINTERS = check-deps lint xref eunit
 
