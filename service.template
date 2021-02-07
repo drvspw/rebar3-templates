@@ -3,7 +3,7 @@
 {variables, [
     {name, "", "Application name"},
     {desc, "An OTP release application", "Short description of the release's main app's purpose"},
-    {svc, "true"}
+    {svc, "t"}
 ]}.
 
 %% create app directory

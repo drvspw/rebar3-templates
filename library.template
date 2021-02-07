@@ -3,7 +3,7 @@
 {variables, [
     {name, "otplib", "Application name"},
     {desc, "An OTP Library application", "Short description of the release's main app's purpose"},
-    {lib, "true"}
+    {lib, "t"}
 ]}.
 
 %% create app directory
