@@ -2,7 +2,7 @@
 
 `rebar3` custom template for creating
 - OTP library
-- OTP application/service
+- OTP release
 - NIF's using [rustler](https://github.com/hansihe/rustler)
 
 ### Installation
@@ -32,3 +32,4 @@ service (custom): Complete OTP Release application structure
 umbrella (built-in): OTP structure for executable programs (alias of 'release' template)
 $
 ```
+For more information on the template please refer to `README.md` in the appropriate directories.
