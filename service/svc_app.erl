@@ -45,7 +45,7 @@ get_env(EnvVar, DefaultValue) ->
 priv_dir() ->
     case code:priv_dir(?MODULE) of
         {error, bad_name} ->
-            lager:info("Couldn't find priv dir for the application, using ./priv~n"),
+            logger:info("Couldn't find priv dir for the application, using ./priv~n"),
             "./priv";
         PrivDir -> filename:absname(PrivDir)
     end.
@@ -60,16 +60,13 @@ is_pid_alive(Pid) ->
     lists:member(node(Pid), nodes())
       andalso (rpc:call(node(Pid), erlang, is_process_alive, [Pid]) =:= true).
 
-log_level(info) ->
-    set_log_level(info);
-log_level(error) ->
-    set_log_level(error).
-
 get_host_fqdn() ->
     {ok, HostName} = inet:gethostname(),
     {ok, {hostent, FullHostName, _, inet, _, _}} = inet:gethostbyname(HostName),
     {ok, FullHostName}.
 
+log_level(Level) ->
+  logger:set_primary_config(level, Level).
 %%--------------------------------------------------------------------
 
 %%%-------------------------------------------------------------------
@@ -113,9 +110,6 @@ init([]) ->
 %%=========================================================================
 %% Private functions
 %%=========================================================================
-set_log_level(Level) ->
-    {ok, LogFile} = @@name@@:get_env(log_file),
-    lager:set_loglevel(lager_file_backend, LogFile, Level).
 
 %%=========================================================================
 %% Unit Test Suite

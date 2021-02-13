@@ -3,10 +3,7 @@ Description={{name}} Service
 After=network.target
 
 [Service]
-Type=oneshot
-RemainAfterExit=yes
-ExecStart=/opt/{{name}}/bin/{{name}} start
-ExecReload=/opt/{{name}}/bin/{{name}} restart
+ExecStart=/opt/{{name}}/bin/{{name}} daemon
 ExecStop=/opt/{{name}}/bin/{{name}} stop
 User={{name}}
 WorkingDirectory=/opt/{{name}}/bin

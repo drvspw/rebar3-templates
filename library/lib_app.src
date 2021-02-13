@@ -4,8 +4,8 @@
   {registered, []},
   {applications,
    [kernel,
-    stdlib,
-    lager
+    stdlib%%,
+    %%uuid
    ]},
   {env,[]},
   {modules, []},

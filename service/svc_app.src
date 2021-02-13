@@ -11,9 +11,7 @@
     sasl,
 
 %%    uuid,
-%%    erldist,
-%%    erlutil,
-    lager
+    epmdlib
 
    ]},
 

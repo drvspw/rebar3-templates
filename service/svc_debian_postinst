@@ -34,7 +34,7 @@ mkdir -p ${XTMP}
 echo "Setting ownership of {{name}} directories."
 chown -R {{name}}:{{name}} ${XINST}
 chown -R {{name}}:{{name}} ${XLOG}
-chown -R {{name}}:{{name}} ${XLIB}
+chown -R {{name}}:{{name}} ${XDATA}
 chown -R {{name}}:{{name}} ${XTMP}
 
 # Enable services

@@ -1,11 +1,11 @@
--name {{node_name}}
+-name {{node_name}}@127.0.0.1
 
 -setcookie {{erlang_cookie}}
 
--proto_dist erldist
+-proto_dist epmdlib_common
 -start_epmd false
--epmd_module erldist_epmd
--erldist_protocol {{proto_dist}}
+-epmd_module epmdlib_epmd_client
+-epmdlib_dist_transport {{dist_protocol_transport}}
 
 -ssl_dist_optfile "{{install_dir}}/{{node_name}}/releases/{{release_version}}/dist.conf"
 

@@ -55,8 +55,8 @@ console: release ## console
 	cd $(RELPATH) && sudo ./bin/$(APPNAME) console
 
 regression-test: test-release ## ct test
-	sudo mkdir -p /var/lib/$(APPNAME) && \
-	sudo $(REBAR) ct -v --sname {{name}}-test@localhost \
+	mkdir -p /tmp/var/lib/$(APPNAME) && \
+	$(REBAR) ct -v --sname {{name}}-test@localhost \
 	--dir test/regression \
 	--suite=$(REGRESSION_TEST_SUITES) \
 	--include $(BASEDIR)/include \
@@ -73,8 +73,8 @@ prod-tar: prod-release ## prod tar
 	mv $(PRODRELPATH)/../$(APPNAME).tar.gz $(BASEDIR)/_build/
 
 clean: ## clean
-	sudo $(REBAR) clean
-	sudo rm -rf _build
+	$(REBAR) clean
+	rm -rf _build
 
 debian: ## create deb
 	package/package.sh debian

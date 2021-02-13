@@ -17,7 +17,7 @@
    - service
    - library
    - rustler
-   
+
 ```bash
 $ rebar3 new
 app (built-in): Complete OTP Application structure.

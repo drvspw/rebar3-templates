@@ -40,3 +40,6 @@ This creates a new directory `<appname>` with the following directory structure
 
 10 directories, 20 files
 ```
+
+### NOTE
+- Be sure to change the value for `erlang_cookie` in `config/prod.vars`.
