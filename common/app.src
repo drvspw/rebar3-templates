@@ -9,7 +9,7 @@
   {applications,
    [kernel
     ,stdlib
-%%    ,uuid
+%%    ,uuidv4
 @@#svc@@
     ,sasl
     ,epmdlib
@@ -19,7 +19,6 @@
   {env,[]},
   {modules, []},
 
-  {contributors, []},
   {licenses, ["Apache 2.0"]},
   {links, [{"Github", "https://github.com/@@gh_owner@@/@@name@@.git"}]}
  ]}.
