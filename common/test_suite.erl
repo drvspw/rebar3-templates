@@ -24,7 +24,7 @@ groups() ->
   [{{{name}}_tests, [], [{{name}}_test]}].
 
 init_per_suite(Config) ->
-  application:ensure_all_started({{name}}),
+  {ok, _} = application:ensure_all_started({{name}}),
   Config.
 
 end_per_suite(_Config) ->
