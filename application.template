@@ -40,6 +40,7 @@
 {template, "common/app.src", "{{name}}/src/{{name}}.app.src"}.
 {template, "service/svc_app.erl", "{{name}}/src/{{name}}.erl"}.
 {template, "common/gitignore", "{{name}}/.gitignore"}.
+{template, "common/gitattributes", "{{name}}/.gitattributes"}.
 {template, "common/license", "{{name}}/LICENSE"}.
 {template, "common/readme", "{{name}}/README.md"}.
 

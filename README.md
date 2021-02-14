@@ -36,3 +36,11 @@ umbrella (built-in): OTP structure for executable programs (alias of 'release' t
 $
 ```
 For more information on the template please refer to `README.md` in the appropriate directories.
+
+### Notes
+- The templates add a `.gitattributes` file with the following contents
+  ```
+  ## Do not export to source archive in github release
+  * export-none
+  ```
+  Remove this file if not needed.
