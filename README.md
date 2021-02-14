@@ -15,6 +15,7 @@
    ]}.
 ```
 2. Download the latest tarball from [Releases](https://github.com/drvspw/rebar3-templates/releases) page and extract into `$HOME/.config/rebar3/templates/` directory. `rebar3` should list the new templates
+   - application
    - service
    - library
    - rustler
@@ -22,6 +23,7 @@
 ```bash
 $ rebar3 new
 app (built-in): Complete OTP Application structure.
+application (custom): Complete OTP application structure (with root supervisor)
 cmake (built-in): Standalone Makefile for building C/C++ in c_src
 escript (built-in): Complete escriptized application structure
 lib (built-in): Complete OTP Library application (no processes) structure
