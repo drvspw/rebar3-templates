@@ -1,8 +1,8 @@
 {description, "Complete OTP Release application structure"}.
 
 {variables, [
-    {name, "", "Application name"},
-    {desc, "An OTP release application", "Short description of the release's main app's purpose"},
+    {name, "otpsvc", "Application name"},
+    {desc, "An OTP release", "Short description of the release's main app's purpose"},
     {svc, "t"}
 ]}.
 
@@ -24,7 +24,7 @@
 {template, "service/svc_makefile", "{{name}}/Makefile"}.
 
 %% rebar.config
-{template, "service/svc_rebar.config", "{{name}}/rebar.config"}.
+{template, "common/rebar.config", "{{name}}/rebar.config"}.
 
 %% overlay vars
 {dir, "{{name}}/config"}.
@@ -53,16 +53,16 @@
 {template, "service/svc_app.service", "{{name}}/package/systemd/{{name}}.service"}.
 
 %% ct test directory
-{dir, "{{name}}/test/regression"}.
+{dir, "{{name}}/test/suites"}.
 {dir, "{{name}}/test/stubs"}.
-{template, "common/test_suite.erl", "{{name}}/test/regression/{{name}}_test_SUITE.erl"}.
+{template, "common/test_suite.erl", "{{name}}/test/suites/{{name}}_test_SUITE.erl"}.
 {template, "common/ct.erl", "{{name}}/test/stubs/{{name}}_ct.erl"}.
 
 %% OTP app
 {dir, "{{name}}/src"}.
 {dir, "{{name}}/priv"}.
 {dir, "{{name}}/include"}.
-{template, "service/svc_app.src", "{{name}}/src/{{name}}.app.src"}.
+{template, "common/app.src", "{{name}}/src/{{name}}.app.src"}.
 {template, "service/svc_app.erl", "{{name}}/src/{{name}}.erl"}.
 {template, "common/gitignore", "{{name}}/.gitignore"}.
 {template, "common/license", "{{name}}/LICENSE"}.

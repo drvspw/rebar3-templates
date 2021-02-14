@@ -16,10 +16,10 @@ jobs:
     steps:
     - uses: actions/checkout@v1
 
-@@#lib@@      
+@@^svc@@
     - name: Build and Test
       run: make test
-@@/lib@@
+@@/svc@@
 @@#svc@@
     - name: Build and Test
       run: make prod-tar

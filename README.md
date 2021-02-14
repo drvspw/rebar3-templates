@@ -1,7 +1,8 @@
 ### Templates
 
 `rebar3` custom template for creating
-- OTP library
+- OTP library (without root supervisor)
+- OTP application (with root supervisor)
 - OTP release
 - NIF's using [rustler](https://github.com/hansihe/rustler)
 

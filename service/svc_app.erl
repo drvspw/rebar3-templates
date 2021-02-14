@@ -10,7 +10,7 @@
          priv_dir/0,
          get_host_fqdn/0,
          log_level/1
-         ]).
+        ]).
 
 %% Application behaviour and callbacks
 -behaviour(application).
@@ -33,37 +33,37 @@
 %% @end
 %%%-------------------------------------------------------------------
 get_env(EnvVar) ->
-    get_env(EnvVar, undefined).
+  get_env(EnvVar, undefined).
 
 get_env(EnvVar, DefaultValue) ->
-    {ok, App} = application:get_application(?MODULE),
-    case application:get_env(App, EnvVar) of
-        undefined -> DefaultValue;
-        V -> V
-    end.
+  {ok, App} = application:get_application(?MODULE),
+  case application:get_env(App, EnvVar) of
+    undefined -> DefaultValue;
+    V -> V
+  end.
 
 priv_dir() ->
-    case code:priv_dir(?MODULE) of
-        {error, bad_name} ->
-            logger:info("Couldn't find priv dir for the application, using ./priv~n"),
-            "./priv";
-        PrivDir -> filename:absname(PrivDir)
-    end.
+  case code:priv_dir(?MODULE) of
+    {error, bad_name} ->
+      logger:info("Couldn't find priv dir for the application, using ./priv~n"),
+      "./priv";
+    PrivDir -> filename:absname(PrivDir)
+  end.
 
 current_time() ->
-    {Mega, Sec, Micro} = os:timestamp(),
-    (Mega * 1000000 + Sec) * 1000000 + Micro.
+  {Mega, Sec, Micro} = os:timestamp(),
+  (Mega * 1000000 + Sec) * 1000000 + Micro.
 
 is_pid_alive(Pid) when node(Pid) =:= node() ->
-    is_process_alive(Pid);
+  is_process_alive(Pid);
 is_pid_alive(Pid) ->
-    lists:member(node(Pid), nodes())
-      andalso (rpc:call(node(Pid), erlang, is_process_alive, [Pid]) =:= true).
+  lists:member(node(Pid), nodes())
+    andalso (rpc:call(node(Pid), erlang, is_process_alive, [Pid]) =:= true).
 
 get_host_fqdn() ->
-    {ok, HostName} = inet:gethostname(),
-    {ok, {hostent, FullHostName, _, inet, _, _}} = inet:gethostbyname(HostName),
-    {ok, FullHostName}.
+  {ok, HostName} = inet:gethostname(),
+  {ok, {hostent, FullHostName, _, inet, _, _}} = inet:gethostbyname(HostName),
+  {ok, FullHostName}.
 
 log_level(Level) ->
   logger:set_primary_config(level, Level).
@@ -74,12 +74,12 @@ log_level(Level) ->
 %% @end
 %%%-------------------------------------------------------------------
 start(_StartType, _StartArgs) ->
-    {ok, Pid} = ?MODULE:start_link(),
+  {ok, Pid} = ?MODULE:start_link(),
 
-    {ok, Pid}.
+  {ok, Pid}.
 
 stop(_State) ->
-    ok.
+  ok.
 %%--------------------------------------------------------------------
 
 %%%-------------------------------------------------------------------
@@ -87,7 +87,7 @@ stop(_State) ->
 %% @end
 %%%-------------------------------------------------------------------
 start_link() ->
-    supervisor:start_link({local, ?SERVER}, ?MODULE, []).
+  supervisor:start_link({local, ?SERVER}, ?MODULE, []).
 
 %%====================================================================
 %% Supervisor callbacks
@@ -101,9 +101,9 @@ start_link() ->
 %%                  }
 
 init([]) ->
-    RestartStrategy = {one_for_one, 4, 3600},
-    Children = [], %% [ child_spec() ]
-    {ok, {RestartStrategy, Children}}.
+  RestartStrategy = {one_for_one, 4, 3600},
+  Children = [], %% [ child_spec() ]
+  {ok, {RestartStrategy, Children}}.
 
 %%--------------------------------------------------------------------
 
@@ -120,7 +120,7 @@ init([]) ->
 
 suite_test_() ->
   [
-    ?_assert(false)
+   ?_assert(false)
   ].
 
 -endif.

@@ -1,9 +1,9 @@
-{description, "Complete OTP Library application structure"}.
+{description, "Complete OTP application structure (with root supervisor)"}.
 
 {variables, [
-    {name, "otplib", "Application name"},
-    {desc, "An OTP Library application", "Short description of the release's main app's purpose"},
-    {lib, "t"}
+    {name, "otpapp", "Application name"},
+    {desc, "An OTP application with root supervisor", "Short description of the release's main app's purpose"},
+    {appl, "t"}
 ]}.
 
 %% create app directory
@@ -38,7 +38,7 @@
 {dir, "{{name}}/priv"}.
 {dir, "{{name}}/include"}.
 {template, "common/app.src", "{{name}}/src/{{name}}.app.src"}.
-{template, "library/lib_mod.erl", "{{name}}/src/{{name}}.erl"}.
+{template, "service/svc_app.erl", "{{name}}/src/{{name}}.erl"}.
 {template, "common/gitignore", "{{name}}/.gitignore"}.
 {template, "common/license", "{{name}}/LICENSE"}.
 {template, "common/readme", "{{name}}/README.md"}.

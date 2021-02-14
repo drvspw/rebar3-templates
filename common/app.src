@@ -3,22 +3,23 @@
  [{description, "@@desc@@"},
   {vsn, {cmd, "./ebump current"}},
   {registered, []},
+@@^lib@@
   {mod, {'@@name@@', []}},
-
+@@/lib@@
   {applications,
-   [kernel,
-    stdlib,
-    sasl,
-
-%%    uuid,
-    epmdlib
-
+   [kernel
+    ,stdlib
+%%    ,uuid
+@@#svc@@
+    ,sasl
+    ,epmdlib
+@@/svc@@
    ]},
 
   {env,[]},
   {modules, []},
 
   {contributors, []},
-  {licenses, []},
-  {links, []}
+  {licenses, ["Apache 2.0"]},
+  {links, [{"Github", "https://github.com/{{gh_owner}}/{{name}}.git"}]}
  ]}.
