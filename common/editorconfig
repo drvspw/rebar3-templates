@@ -10,6 +10,9 @@ insert_final_newline = true
 charset = utf-8
 trim_trailing_whitespace = true
 
+[Makefile]
+indent_style = tab
+
 # 4 space indentation
 [*.{erl,src,hrl}]
 indent_style = space
