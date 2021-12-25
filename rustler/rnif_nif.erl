@@ -17,7 +17,7 @@
 %% @doc add/2 adds two integers and returns their sum
 %%
 %% @end
--spec add(A, B) -> {ok, Sum}
+-spec add(A, B) -> Sum
                      when
     A :: integer(),
     B :: integer(),

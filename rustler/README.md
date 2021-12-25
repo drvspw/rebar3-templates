@@ -47,6 +47,6 @@ Erlang/OTP 20 [erts-9.3] [source] [64-bit] [smp:2:2] [ds:2:2:10] [async-threads:
 
 Eshell V9.3  (abort with ^G)
 1> <name>_nif:add(10, 11).
-{ok,21}
+21
 2>
 ```
