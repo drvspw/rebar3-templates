@@ -15,11 +15,6 @@
 %% editorconfig
 {file, "common/editorconfig", "{{name}}/.editorconfig"}.
 
-%% ebump
-{file, "common/ebump.config", "{{name}}/ebump.config"}.
-{file, "common/ebump", "{{name}}/ebump"}.
-{chmod, "{{name}}/ebump", 8#755}.
-
 %% makefile
 {template, "library/lib_makefile", "{{name}}/Makefile"}.
 

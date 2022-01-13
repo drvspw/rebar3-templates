@@ -8,8 +8,6 @@ $ rebar3 new library <libname>
 This creates a new directory `<libname>` with the following directory structure
 ```
 .
-├── ebump
-├── ebump.config
 ├── elvis.config
 ├── include
 ├── LICENSE

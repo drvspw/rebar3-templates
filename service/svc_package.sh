@@ -27,7 +27,7 @@ branch() {
 }
 
 version() {
-    local vsn=$(${PROJECT_DIR}/ebump current)
+    local vsn=$(rebar3 current)
     echo -n "${vsn}"
 }
 

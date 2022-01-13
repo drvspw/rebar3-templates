@@ -1,7 +1,7 @@
 {{=@@ @@=}}
 {application, @@name@@,
  [{description, "@@desc@@"},
-  {vsn, {cmd, "./ebump current"}},
+  {vsn, {cmd, "rebar3 bump"}},
   {registered, []},
 @@^lib@@
   {mod, {'@@name@@', []}},

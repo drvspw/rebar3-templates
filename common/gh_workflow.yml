@@ -33,6 +33,9 @@ jobs:
 
     runs-on: ubuntu-latest
 
+    container:
+      image: ghcr.io/@@gh_owner@@/@@name@@-build # erlang:22.2.3
+
     if: endsWith(github.ref, 'refs/heads/master')
 
     steps:
@@ -51,7 +54,7 @@ jobs:
 
       run: |
         go install github.com/tcnksm/ghr@v0.14.0
-        VERSION=$(./ebump current)
+        VERSION=$(rebar3 bump)
         REPO=@@name@@
         OWNER=@@gh_owner@@
         $HOME/go/bin/ghr \
