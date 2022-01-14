@@ -27,7 +27,7 @@ branch() {
 }
 
 version() {
-    local vsn=$(rebar3 current)
+    local vsn=$(rebar3 bump)
     echo -n "${vsn}"
 }
 
