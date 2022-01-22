@@ -22,7 +22,7 @@ jobs:
 @@/svc@@
 @@#svc@@
     - name: Build and Test
-      run: make prod-tar
+      run: make prod-release
 
     - name: Create .deb file
       run: make debian

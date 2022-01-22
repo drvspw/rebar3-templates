@@ -32,17 +32,6 @@
 {template, "service/svc_sys.config", "{{name}}/config/sys.config"}.
 {file, "service/svc_dist.conf", "{{name}}/config/dist.conf"}.
 
-%% package directory
-{dir, "{{name}}/package/deb"}.
-{template, "service/svc_package.sh", "{{name}}/package/package.sh"}.
-{chmod, "{{name}}/package/package.sh", 8#755}.
-{template, "service/svc_debian_control",  "{{name}}/package/deb/control"}.
-{template, "service/svc_debian_postinst",  "{{name}}/package/deb/postinst"}.
-{chmod, "{{name}}/package/deb/postinst", 8#755}.
-{template, "service/svc_debian_prerm",  "{{name}}/package/deb/prerm"}.
-{chmod, "{{name}}/package/deb/prerm", 8#755}.
-
-
 %% service files for application
 {dir, "{{name}}/package/systemd"}.
 {template, "service/svc_app.service", "{{name}}/package/systemd/{{name}}.service"}.
