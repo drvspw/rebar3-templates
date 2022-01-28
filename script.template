@@ -1,0 +1,35 @@
+{description, "Complete escriptize application structure"}.
+
+{variables, [
+    {name, "myscript", "Script name"},
+    {desc, "An escript", "Short description of the script's purpose"},
+    {script, "t"}
+]}.
+
+%% create app directory
+{dir, "{{name}}"}.
+
+%% elvis
+{template, "common/elvis.config", "{{name}}/elvis.config"}.
+
+%% editorconfig
+{file, "common/editorconfig", "{{name}}/.editorconfig"}.
+
+%% makefile
+{template, "library/lib_makefile", "{{name}}/Makefile"}.
+
+%% rebar.config
+{template, "common/rebar.config", "{{name}}/rebar.config"}.
+
+%% OTP app
+{dir, "{{name}}/src"}.
+{template, "common/app.src", "{{name}}/src/{{name}}.app.src"}.
+{template, "script/script_mod.erl", "{{name}}/src/{{name}}.erl"}.
+{template, "common/gitignore", "{{name}}/.gitignore"}.
+{template, "common/gitattributes", "{{name}}/.gitattributes"}.
+{template, "common/license", "{{name}}/LICENSE"}.
+{template, "common/readme", "{{name}}/README.md"}.
+
+
+{dir, ".github/workflows"}.
+{template, "script/script_gh_workflow.yml", "{{name}}/.github/workflows/main.yml"}.

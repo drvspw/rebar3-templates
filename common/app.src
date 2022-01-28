@@ -1,10 +1,17 @@
 {{=@@ @@=}}
 {application, @@name@@,
  [{description, "@@desc@@"},
+@@#script@@
+  {vsn, "1.0.0"},
+@@/script@@
+@@^script@@
   {vsn, {cmd, "rebar3 bump"}},
+@@/script@@
   {registered, []},
 @@^lib@@
+@@^script@@
   {mod, {'@@name@@', []}},
+@@/script@@
 @@/lib@@
   {applications,
    [kernel
@@ -14,6 +21,9 @@
     ,sasl
     ,epmdlib
 @@/svc@@
+@@#script@@
+    ,getopt
+@@/script@@
    ]},
 
   {env,[]},

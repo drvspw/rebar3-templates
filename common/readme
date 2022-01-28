@@ -1,6 +1,18 @@
 ### {{name}}
 {{desc}}
 
+{{#script}}
+### Build
+```bash
+$ make release
+```
+
+### Run
+```bash
+$ make run --
+```
+{{/script}}
+{{^script}}
 ### Usage
 Add `{{name}}` as a dependency in `rebar.config`
 ```erlang
@@ -15,5 +27,6 @@ If not using `hex.pm`
 	{{{name}}, {git, "https://github.com/{{gh_owner}}/{{name}}.git", {tag, "<latest release>"}}}
 	]}.
 ```
+{{/script}}
 
 ### Contributing

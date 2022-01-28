@@ -7,10 +7,18 @@ ifneq ($(APPNAME), {{name}})
 endif
 
 LINTERS = check-deps lint xref eunit
+{{#script}}
+RELPATH = _build/default/bin
 
+.PHONY: run
+{{/script}}
+{{^script}}
 REGRESSION_TEST_DIR := test/
 REGRESSION_TEST_FILES := $(shell find $(REGRESSION_TEST_DIR) -name '*_SUITE.erl' -exec basename '{}' \;)
 REGRESSION_TEST_SUITES := $(shell echo $(REGRESSION_TEST_FILES) | sed -e 's/.erl//g' | sed -e 's/ /,/g')
+{{/script}}
+
+.DEFAULT_GOAL := help
 
 compile: ## compile
 	$(REBAR) compile
@@ -30,6 +38,16 @@ check-deps: ## check dependencies
 lint: ## lint
 	$(REBAR) lint
 
+{{#script}}
+release: $(LINTERS) ## create escript
+	$(REBAR) escriptize
+
+run: release ## run escript
+	$(RELPATH)/$(APPNAME) $(filter-out $@,$(MAKECMDGOALS))
+%:
+	@:
+{{/script}}
+{{^script}}
 test: $(LINTERS) ## run ct test suites
 	$(REBAR) ct -v \
 	--dir $(REGRESSION_TEST_DIR) \
@@ -39,6 +57,7 @@ test: $(LINTERS) ## run ct test suites
 
 console: test ## launch a shell
 	$(REBAR) shell
+{{/script}}
 
 clean: ## clean
 	$(REBAR) clean

@@ -10,7 +10,7 @@
 {dir, "{{name}}"}.
 
 %% elvis
-{file, "common/elvis.config", "{{name}}/elvis.config"}.
+{template, "common/elvis.config", "{{name}}/elvis.config"}.
 
 %% editorconfig
 {file, "common/editorconfig", "{{name}}/.editorconfig"}.
