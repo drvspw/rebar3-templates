@@ -19,6 +19,7 @@
    - service
    - library
    - rustler
+   - script
 
 ```bash
 $ rebar3 new
@@ -31,6 +32,7 @@ library (custom): Complete OTP Library application structure
 plugin (built-in): Rebar3 plugin project structure
 release (built-in): OTP Release structure for executable programs
 rustler (custom): Rust NIF's using rustler in rustler/
+script (custom): Complete escriptize application structure
 service (custom): Complete OTP Release application structure
 umbrella (built-in): OTP structure for executable programs (alias of 'release' template)
 $
