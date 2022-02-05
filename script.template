@@ -32,4 +32,4 @@
 
 
 {dir, ".github/workflows"}.
-{template, "script/script_gh_workflow.yml", "{{name}}/.github/workflows/main.yml"}.
+{template, "common/gh_workflow.yml", "{{name}}/.github/workflows/main.yml"}.
