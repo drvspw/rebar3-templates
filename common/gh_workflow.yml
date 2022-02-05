@@ -11,14 +11,49 @@ jobs:
     runs-on: ubuntu-latest
 
     container:
-      image: ghcr.io/@@gh_owner@@/@@name@@-build # erlang:22.2.3
+@@#script@@
+      image: erlang:22.2.3
+@@/script@@
+@@^script@@
+      image: ghcr.io/@@gh_owner@@/@@name@@-build # erlang:23.3.4
+@@/script@@
 
     steps:
     - uses: actions/checkout@v2
+      with:
+        fetch-depth: 0
 
 @@^svc@@
+@@^script@@
     - name: Build and Test
       run: make test
+
+    - name: Create version.txt
+      run: rebar3 bump > version.txt
+@@/script@@
+@@#script@@
+    - name: Generate @@name@@ escript
+      run: make release
+
+    - name: Check @@name@@ version
+      run: |
+        _build/default/bin/@@name@@ version | sed -e 's/Version: //' > version.txt
+        cat version.txt
+
+    - name: Store @@name@@ as artifact
+      if: endsWith(github.ref, 'refs/heads/master')
+      uses: actions/upload-artifact@v2
+      with:
+        name: @@name@@
+        path: _build/default/bin/@@name@@
+@@/script@@
+
+    - name: Store version.txt as artifact
+      if: endsWith(github.ref, 'refs/heads/master')
+      uses: actions/upload-artifact@v2
+      with:
+        name: @@name@@-version
+        path: version.txt
 @@/svc@@
 @@#svc@@
     - name: Build and Test
@@ -33,9 +68,6 @@ jobs:
 
     runs-on: ubuntu-latest
 
-    container:
-      image: ghcr.io/@@gh_owner@@/@@name@@-build # erlang:22.2.3
-
     if: endsWith(github.ref, 'refs/heads/master')
 
     steps:
@@ -48,19 +80,52 @@ jobs:
     - name: Checkout
       uses: actions/checkout@v2
 
+@@^svc@@
+    - name: Download version.txt
+      uses: actions/download-artifact@v2
+      with:
+        name: @@name@@-version
+@@/svc@@
+
+@@#script@@
+    - name: Download @@name@@
+      uses: actions/download-artifact@v2
+      with:
+        name: @@name@@
+@@/script@@
+
     - name: Push Tag
       env:
         GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
 
       run: |
         go install github.com/tcnksm/ghr@v0.14.0
-        VERSION=$(rebar3 bump)
+        VERSION=$(cat version.txt)
         REPO=@@name@@
         OWNER=@@gh_owner@@
+        echo -n "Releasing ${VERSION}..."
         $HOME/go/bin/ghr \
             -t ${GITHUB_TOKEN} \
             -u ${OWNER} \
             -r ${REPO} \
             -c ${GITHUB_SHA} \
             -delete \
-            ${VERSION} ./README.md
+            ${VERSION} \
+@@#script@@
+           ./@@name@@
+@@/script@@
+@@^script@@
+            ./README.md
+@@/script@@
+        echo "done!"
+
+@@^svc@@
+    - name: Delete artifacts
+      uses: geekyeggo/delete-artifact@v1
+      with:
+        name: |
+          @@name@@-version
+@@#script@@
+          @@name@@
+@@/script@@
+@@/svc@@
