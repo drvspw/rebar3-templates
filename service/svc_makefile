@@ -50,16 +50,19 @@ test-release: $(LINTERS) ## test release
 console: release ## console
 	cd $(RELPATH) && sudo ./bin/$(APPNAME) console
 
-test: test-release ## run ct test suites
+test: test-release test-config ## run ct test suites
 	mkdir -p /tmp/var/lib/$(APPNAME) && \
 	$(REBAR) ct -v --sname {{name}}-test@localhost \
 	--dir $(REGRESSION_TEST_DIR) \
 	--suite=$(REGRESSION_TEST_SUITES) \
 	--include $(BASEDIR)/include \
-	--sys_config $(TESTRELPATH)/releases/$(APPVSN)/sys.config
+	--sys_config $(TESTRELPATH)/releases/$(APPVSN)/sys.config,$(TESTRELPATH)/releases/$(APPVSN)/generated.sys.config
 
 test-coverage-report: ## Test Coverate Report
 	$(REBAR) cover --verbose
+
+test-config: ## Generate config using cuttlefish for test release
+	cd $(TESTRELPATH) && bash bin/hooks/cuttlefish_pre_start test
 
 prod-release: test ## prod release
 	$(REBAR) as prod release

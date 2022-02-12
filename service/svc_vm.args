@@ -1,25 +1,3 @@
 -name {{node_name}}@127.0.0.1
 
--setcookie {{erlang_cookie}}
-
--proto_dist epmdlib_common
--start_epmd false
--epmd_module epmdlib_epmd_client
--epmdlib_dist_transport {{dist_protocol_transport}}
-
--ssl_dist_optfile "{{install_dir}}/{{node_name}}/releases/{{release_version}}/dist.conf"
-
-## Enable kernel poll and a few async threads
-##+K true
-##+A 5
-##+P 134217727
-
-+P {{erlang_max_processes}}
-+K true
-+A 64
-
-## Increase number of concurrent ports/sockets - Max is 134217727
--env ERL_MAX_PORTS {{erlang_max_ports}}
-
-## Tweak GC to run more often
-##-env ERL_FULLSWEEP_AFTER 10
+-args_file releases/{{release_version}}/generated.vm.args

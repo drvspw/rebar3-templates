@@ -21,6 +21,9 @@
 %% rebar.config
 {template, "common/rebar.config", "{{name}}/rebar.config"}.
 
+%% bump.config
+{file, "common/bump.config", "{{name}}/bump.config"}.
+
 %% ct test directory
 {dir, "{{name}}/test/suites"}.
 {dir, "{{name}}/test/stubs"}.

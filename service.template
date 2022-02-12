@@ -21,6 +21,9 @@
 %% rebar.config
 {template, "common/rebar.config", "{{name}}/rebar.config"}.
 
+%% bump.config
+{file, "common/bump.config", "{{name}}/bump.config"}.
+
 %% overlay vars
 {dir, "{{name}}/config"}.
 {template, "service/svc_local.vars", "{{name}}/config/local.vars"}.
@@ -48,6 +51,9 @@
 {dir, "{{name}}/include"}.
 {template, "common/app.src", "{{name}}/src/{{name}}.app.src"}.
 {template, "service/svc_app.erl", "{{name}}/src/{{name}}.erl"}.
+{template, "service/svc_sys.config.schema", "{{name}}/priv/sys.config.schema"}.
+{template, "service/svc_vm.args.schema", "{{name}}/priv/vm.args.schema"}.
+{template, "service/svc_epmdlib.schema", "{{name}}/priv/epmdlib.schema"}.
 {template, "common/gitignore", "{{name}}/.gitignore"}.
 {template, "common/gitattributes", "{{name}}/.gitattributes"}.
 {template, "common/license", "{{name}}/LICENSE"}.
